@@ -10,7 +10,8 @@ io.on('connection',(socket) => {
     
     socket.on('message', (msg) => {
         console.log('message:', msg);
-        socket.broadcast.emit(msg);
+        socket.broadcast.emit(msg); // <-- All except the sender
+        socket.emit(msg); // <-- All users including sender
 
     })
 
