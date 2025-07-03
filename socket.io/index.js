@@ -1,9 +1,12 @@
 const {createServer} = require('http')
 const {Server} = require('socket.io')
+const {path} = require('path');
 
 const server = createServer();
 
 const io = new Server(server)
+
+
 
 io.on('connection',(socket) => {
     console.log('socket connected!', socket.id)
