@@ -19,11 +19,21 @@ const brainRouter = (0, express_1.default)();
 brainRouter.post('/share', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const share = req.body.share;
     const userId = req.userId;
-    try {
-        if (share) {
-            const user = yield model_1.LinkModel.findOne({
+    if (share) {
+        try {
+            const existingUser = yield model_1.LinkModel.findOne({
                 userId
             });
+            console.log('existingUser: ', existingUser);
+            if (existingUser) {
+                const existingHash = yield model_1.LinkModel.find({
+                    hash: existingUser.hash
+                });
+                res.json({
+                    existingHash
+                });
+                return;
+            }
             const hash = (0, nanoid_1.nanoid)();
             const link = yield model_1.LinkModel.create({
                 hash,
@@ -40,12 +50,19 @@ brainRouter.post('/share', (req, res) => __awaiter(void 0, void 0, void 0, funct
                 link: link
             });
         }
+        catch (e) {
+            res.json({
+                error: "error occured! try later"
+            });
+        }
     }
-    catch (e) {
-        res.json({
-            error: "error occured"
+    else {
+        yield model_1.LinkModel.deleteOne({
+            userId
         });
-        return;
+        res.json({
+            message: "hash removed!"
+        });
     }
 }));
 brainRouter.get('/share/:sharelink', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -79,16 +96,20 @@ brainRouter.get('/share/:sharelink', (req, res) => __awaiter(void 0, void 0, voi
         return;
     }
 }));
-brainRouter.post('/share-by-id/:contentId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const contentId = req.params.contentId;
+brainRouter.post('/share-by-id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { contentId, share } = req.body;
     const userId = req.userId;
-    try {
-        if (contentId) {
+    if (share) {
+        try {
+            const content = yield model_1.ContentModel.findById({
+                _id: contentId
+            });
+            console.log('content: ', content);
             const hash = (0, nanoid_1.nanoid)();
             const link = yield model_1.LinkModel.create({
                 hash,
                 userId,
-                contentId
+                contentId: content === null || content === void 0 ? void 0 : content._id
             });
             console.log("link", link);
             if (!link) {
@@ -98,15 +119,23 @@ brainRouter.post('/share-by-id/:contentId', (req, res) => __awaiter(void 0, void
                 return;
             }
             res.json({
-                link: link
+                link: link.hash
             });
         }
+        catch (e) {
+            res.json({
+                error: "error occured"
+            });
+            return;
+        }
     }
-    catch (e) {
-        res.json({
-            error: "error occured"
+    else {
+        yield model_1.LinkModel.findById({
+            contentId
         });
-        return;
+        res.json({
+            message: "hash removed for contentId"
+        });
     }
 }));
 brainRouter.get('/share-by-id/:contentId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {

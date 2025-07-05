@@ -8,11 +8,27 @@ brainRouter.post('/share',async(req,res) => {
     const share = req.body.share;
     const userId = req.userId;
 
-    try {
-        if(share){
-            const user = await LinkModel.findOne({
+    if(share){
+
+        try {
+
+            const existingUser = await LinkModel.findOne({
                 userId
             });
+
+            console.log('existingUser: ', existingUser);
+
+            if(existingUser){
+
+                const existingHash = await LinkModel.find({
+                    hash : existingUser.hash
+                })
+
+                res.json({
+                    existingHash 
+                })
+                return;
+            }
 
             const hash = nanoid();
 
@@ -22,6 +38,7 @@ brainRouter.post('/share',async(req,res) => {
             })
 
             console.log("link", link);
+
             if(!link){
 
                 res.json({
@@ -35,24 +52,25 @@ brainRouter.post('/share',async(req,res) => {
             })
 
         }
-        else{
-            await LinkModel.deleteOne({
-                userId 
-             })
+        catch(e){
 
             res.json({
-                message : "hash removed!"
+                error : "error occured! try later"
             })
-
         }
     }
-    catch(e){
+    else{
+
+        await LinkModel.deleteOne({
+            userId 
+         })
 
         res.json({
-            error : "error occured"
+            message : "hash removed!"
         })
-        return;
+
     }
+    
 })
 
 brainRouter.get('/share/:sharelink',async(req,res) => {
@@ -95,21 +113,29 @@ brainRouter.get('/share/:sharelink',async(req,res) => {
     
 })
 
-brainRouter.post('/share-by-id/:contentId',async(req,res) => {
-    const contentId = req.params.contentId;
+brainRouter.post('/share-by-id',async(req,res) => {
+    const {contentId, share} = req.body;
     const userId = req.userId;
 
-    try {
-        if(contentId){
+    if(share){
+
+        try {
+
+            const content = await ContentModel.findById({
+                _id : contentId
+            })
+            console.log('content: ', content);
+                
             const hash = nanoid();
 
             const link = await LinkModel.create({
                 hash,
                 userId,
-                contentId
+                contentId : content?._id
             })
 
             console.log("link", link);
+
             if(!link){
 
                 res.json({
@@ -119,18 +145,30 @@ brainRouter.post('/share-by-id/:contentId',async(req,res) => {
             }
 
             res.json({
-                link : link
+                link : link.hash
             })
 
         }
+        catch(e){
+
+            res.json({
+                error : "error occured"
+            })
+            return;
+        }
     }
-    catch(e){
+    else{
+
+        await LinkModel.findByIdAndDelete({
+            contentId
+        })
 
         res.json({
-            error : "error occured"
+            message : "hash removed for contentId"
         })
-        return;
+
     }
+ 
 })
 
 brainRouter.get('/share-by-id/:contentId',async(req,res) => {

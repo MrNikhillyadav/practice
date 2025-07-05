@@ -18,8 +18,8 @@ const contentType = new Schema({
 
 const LinkSchema = new Schema({
     hash : String,
-    contentId : {type : Schema.Types.ObjectId, ref : "Content"},
-    userId : {type : Schema.Types.ObjectId, ref : "User", required : true }
+    userId : {type : Schema.Types.ObjectId, ref : "User", required : true },
+    contentId : {type : Schema.Types.ObjectId, ref : "Content"}
 })
 
 
