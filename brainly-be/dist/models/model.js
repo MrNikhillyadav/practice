@@ -15,10 +15,11 @@ const contentType = new mongoose_2.Schema({
     title: String,
     link: String,
     type: String,
-    createdBy: { type: mongoose_2.Schema.Types.ObjectId, ref: "User", required: true },
+    userId: { type: mongoose_2.Schema.Types.ObjectId, ref: "User", required: true },
 });
 const LinkSchema = new mongoose_2.Schema({
     hash: String,
+    contentId: { type: mongoose_2.Schema.Types.ObjectId, ref: "Content" },
     userId: { type: mongoose_2.Schema.Types.ObjectId, ref: "User", required: true }
 });
 exports.ContentModel = mongoose_1.default.model("Content", contentType);

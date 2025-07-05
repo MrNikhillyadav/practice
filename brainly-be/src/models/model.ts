@@ -12,12 +12,13 @@ const contentType = new Schema({
     title : String,
     link : String,
     type : String,
-    createdBy : {type : Schema.Types.ObjectId, ref : "User", required : true},
+    userId : {type : Schema.Types.ObjectId, ref : "User", required : true},
 })
 
 
 const LinkSchema = new Schema({
     hash : String,
+    contentId : {type : Schema.Types.ObjectId, ref : "Content"},
     userId : {type : Schema.Types.ObjectId, ref : "User", required : true }
 })
 

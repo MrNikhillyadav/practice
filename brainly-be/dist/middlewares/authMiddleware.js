@@ -12,20 +12,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JWT_SECRET = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-console.log('DATABASE_URI', process.env.DATABASE_URI);
-function ConnectDB() {
+exports.default = authMiddleware;
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const config_1 = require("../config");
+function authMiddleware(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
+        var _a;
         try {
-            yield mongoose_1.default.connect(process.env.MONGO_URI || "mongodb+srv://nikyadav20032003:e0u1Gam4rdA2ap6f@cluster0.orazjtw.mongodb.net/brain");
-            console.log('db connected');
+            const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1];
+            if (!token) {
+                res.status(401).json({
+                    message: 'No token found!'
+                });
+                return;
+            }
+            const decodedPayload = yield jsonwebtoken_1.default.verify(token, config_1.JWT_SECRET);
+            if (!decodedPayload) {
+                res.json({
+                    message: "Invalid token"
+                });
+            }
+            req.userId = decodedPayload.id;
+            next();
         }
         catch (e) {
-            console.error("error", e);
-            process.exit(1);
+            res.status(401).json({
+                error: e
+            });
+            return;
         }
     });
 }
-exports.default = ConnectDB;
-exports.JWT_SECRET = "DFHHQIEIR4568";
