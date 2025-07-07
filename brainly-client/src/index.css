@@ -1,0 +1,12 @@
+
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'telegraph'; 
+    src: url('../src/assets/fonts/telegraph-regular.woff'); 
+}
+
+
+body {
+  font-family: telegraph;
+}
