@@ -5,16 +5,14 @@ export function useContent() {
     const [contents, setContents] = useState([]);
 
     async function refresh() {
-        const res = axios.get(`http://localhost:3000/api/v1/content`, {
+        const res = await axios.get(`http://localhost:3000/api/v1/content/all-content`, {
             headers: {
                 "token": localStorage.getItem("token")
             }
         })
 
-        
-            .then((response) => {
-                setContents(response.data.content)
-            })
+        const content = res.data.content
+        setContents(content)    
     }
 
     useEffect(() => {

@@ -24,7 +24,7 @@ export function CreateContentModal({open, onClose}:ModalInterface){
                const title = titleRef.current?.value;
                const link = linkRef.current?.value
                 
-                 await axios.post(`https://localhost:3000/api/v1/content`, {
+                 await axios.post(`https://localhost:3000/api/v1/content/create`, {
                             link,
                             title,
                             type 

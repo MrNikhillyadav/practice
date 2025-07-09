@@ -2,13 +2,20 @@ import { Button } from "../ui/Button";
 import { FaShare } from "react-icons/fa6";
 import { FaPlusCircle } from "react-icons/fa";
 import {CreateContentModal} from "../ui/CreateContentModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useContent } from "../../hooks/useContent";
+import { Card } from "../ui/Card";
 
 export default function Dashboard(){
-    const [isOpen, SetIsOpen] = useState(true)
+    const [isOpen, SetIsOpen] = useState(false); 
+    const {contents,refresh} = useContent();
+
+    useEffect(() => {
+        refresh();
+    },[isOpen,refresh])
 
     return <div className="p-4 w-full h-screen rounded-2xl py-2 border-4 border-[#252525] bg-[#0E0E0E]">
-        <div className="p-4 flex  justify-between items-center">
+        <div className="p-4 flex border justify-between items-center">
             <h1 className="text-xl font-medium">Dashboard</h1>
 
             <div className="flex justify-center absolute z-2 transition-all duration-300 items-center"> 
@@ -20,8 +27,10 @@ export default function Dashboard(){
                 <Button  title="Share"  startIcon={<FaShare/>} />
             </div>
 
+
+        </div>
              {/* cards */}
-              <div className=' flex flex-wrap gap-6 p-2 '>
+              <div className=' flex flex-wrap gap-6 p-2 mt-12 '>
                 { contents.map(({title,link,type}) => (
                     <Card 
                       type={type} 
@@ -30,7 +39,5 @@ export default function Dashboard(){
                     />
                 ))}
               </div>
-
-        </div>
     </div>
 }
