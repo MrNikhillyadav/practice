@@ -15,7 +15,7 @@ export default function Dashboard(){
     },[isOpen,refresh])
 
     return <div className="p-4 w-full h-screen rounded-2xl py-2 border-4 border-[#252525] bg-[#0E0E0E]">
-        <div className="p-4 flex border justify-between items-center">
+        <div className="p-4 flex  justify-between items-center">
             <h1 className="text-xl font-medium">Dashboard</h1>
 
             <div className="flex justify-center absolute z-2 transition-all duration-300 items-center"> 
@@ -30,9 +30,10 @@ export default function Dashboard(){
 
         </div>
              {/* cards */}
-              <div className=' flex flex-wrap gap-6 p-2 mt-12 '>
-                { contents.map(({title,link,type}) => (
+              <div className=' flex flex-wrap gap-6 p-2 mt-8 '>
+                { contents.map(({title,link,type},idx) => (
                     <Card 
+                      key={link | idx}
                       type={type} 
                       title={title} 
                       link={link} 

@@ -7,12 +7,10 @@ export function useContent() {
     async function refresh() {
         const res = await axios.get(`http://localhost:3000/api/v1/content/all-content`, {
             headers: {
-                "token": localStorage.getItem("token")
+                Authorization : `Bearer ${localStorage.getItem("token")}`
             }
         })
-
-        const content = res.data.content
-        setContents(content)    
+        setContents(res.data.contents)    
     }
 
     useEffect(() => {
