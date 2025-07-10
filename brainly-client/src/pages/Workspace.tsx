@@ -1,12 +1,17 @@
 import Dashboard from '../components/Dashboard/Dashboard';
 import Sidebar from '../components/SideNavbar/Sidebar';
 
-export default function Workspace(){
+interface WorkspaceInterface {
+    filter : string;
+}
+
+export default function Workspace({filter}:WorkspaceInterface){
+
     return (
         <div className="w-full h-screen bg-[#0E0E0E]  text-white">
                 <div className='flex  rounded-2xl bg-[#252525] '>
                     <Sidebar/>
-                    <Dashboard/>
+                    <Dashboard filter={filter} />
                 </div>
         </div>
     )

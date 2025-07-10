@@ -5,14 +5,23 @@ import {CreateContentModal} from "../ui/CreateContentModal";
 import { useEffect, useState } from "react";
 import { useContent } from "../../hooks/useContent";
 import { Card } from "../ui/Card";
+import { useLocation } from "react-router-dom";
 
-export default function Dashboard(){
+interface DashboardInterface {
+    filter : string;
+}
+
+export default function Dashboard({filter}:DashboardInterface){
     const [isOpen, SetIsOpen] = useState(false); 
     const {contents,refresh} = useContent();
+    const location = useLocation();
+    console.log('location: ', location.pathname);
 
     useEffect(() => {
         refresh();
-    },[isOpen,refresh])
+    },[isOpen,refresh, location.pathname])
+
+    const filteredContents = filter ? contents.filter( content => content.type === filter) : contents;
 
     return <div className="p-4 w-full h-screen rounded-2xl py-2 border-4 border-[#252525] bg-[#0E0E0E]">
         <div className="p-4 flex  justify-between items-center">
@@ -31,9 +40,9 @@ export default function Dashboard(){
         </div>
              {/* cards */}
               <div className=' flex flex-wrap gap-6 p-2 mt-8 '>
-                { contents.map(({title,link,type},idx) => (
+                { filteredContents.map(({_id,title,link,type}) => (
                     <Card 
-                      key={link | idx}
+                      key={_id  }
                       type={type} 
                       title={title} 
                       link={link} 
