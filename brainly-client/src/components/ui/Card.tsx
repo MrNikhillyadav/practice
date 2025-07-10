@@ -1,14 +1,21 @@
 import { FaShare } from "react-icons/fa6";
 import { ImYoutube } from "react-icons/im";
 import { FaXTwitter } from "react-icons/fa6";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
 interface CardProps {
+    id : string;
     title: string;
     link: string;
+    onDelete : (id:string) => void ;
     type: "twitter" | "youtube";
 }
 
-export function Card({title, link, type}: CardProps) {
+
+export function Card({ id, title, link, type, onDelete}: CardProps) {
+
+
+    
     return <div>
         <div className="p-4 bg-[#0E0E0E] border shadow-md border-[#252525] rounded-md max-w-72   min-h-48 min-w-72">
             <div className="flex justify-between">
@@ -18,11 +25,14 @@ export function Card({title, link, type}: CardProps) {
                     </div>
                     <div className="p-1 leading-4">{title}</div>
                 </div>
-                <div className="flex items-center">
-                    <div className="pr-2 text-gray-500">
+                <div className="flex  items-center">
+                    <div className=" flex gap-2 text-gray-500">
                         <a href={link} target="_blank">
                             <FaShare />
                         </a>
+                        <div onClick={() => onDelete(id)}> 
+                            <RiDeleteBin5Fill/>
+                        </div>
                     </div>
                 </div>
             </div>

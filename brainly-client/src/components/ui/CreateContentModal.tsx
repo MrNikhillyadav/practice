@@ -3,6 +3,7 @@ import { Button } from "./Button";
 import { ImCancelCircle } from "react-icons/im";
 import { Input } from "./Input";
 import axios from "axios";
+import { useContent } from "../../hooks/useContent";
 
 interface ModalInterface {
     open: boolean;
@@ -17,6 +18,7 @@ enum ContentType {
 export function CreateContentModal({ open, onClose }: ModalInterface) {
     const titleRef = useRef<HTMLInputElement>(null);
     const linkRef = useRef<HTMLInputElement>(null);
+    const {refresh} = useContent();
     const [type, setType] = useState('');
 
     async function CreateContent() {
@@ -37,6 +39,8 @@ export function CreateContentModal({ open, onClose }: ModalInterface) {
                     },
                 }
             );
+
+            refresh();
 
             console.log("Content Created Successfully!");
             onClose();
