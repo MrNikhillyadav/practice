@@ -65,7 +65,7 @@ export function CreateContentModal({ open, onClose }: ModalInterface) {
                         <div className="flex mb-4 w-full justify-between items-center ">
                             <h2 className="font-bold text-lg">Add Note</h2>
                             <div className="p-1 text-center flex items-center rounded-full hover:bg-[#3E3E3E] cursor-pointer">
-                                <ImCancelCircle onClick={onClose} />
+                                <ImCancelCircle  onClick={onClose} />
                             </div>
                         </div>
                         <div className="flex flex-col justify-center items-center w-full gap-4">

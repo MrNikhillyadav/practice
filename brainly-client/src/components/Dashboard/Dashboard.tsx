@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useContent } from "../../hooks/useContent";
 import { Card } from "../ui/Card";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 
 interface DashboardInterface {
     filter: string;
@@ -17,16 +16,7 @@ export default function Dashboard({ filter }: DashboardInterface) {
     const { contents, refresh } = useContent();
     const location = useLocation();
 
-        async function handleDelete(id : string){
-            await axios.delete(`http://localhost:3000/api/v1/content/remove/${id}`,
-                {
-                    headers : {
-                        Authorization : `Bearer ${localStorage.getItem('token')}`
-                    }
-                }
-            );
-            refresh();
-    }
+        
 
     useEffect(() => {
         refresh();
@@ -37,7 +27,7 @@ export default function Dashboard({ filter }: DashboardInterface) {
         : contents;
 
     return (
-        <div className="p-4 w-full h-screen rounded-2xl py-2 border-4 border-[#252525] bg-[#0E0E0E]">
+        <div className="p-4 w-full h-full min-h-screen rounded-2xl py-2 border-4 border-[#252525] bg-[#0E0E0E]">
             <div className="p-4 flex justify-between items-center">
                 <h1 className="text-xl font-medium">Dashboard</h1>
 
@@ -67,7 +57,6 @@ export default function Dashboard({ filter }: DashboardInterface) {
                         type={type} 
                         title={title} 
                         link={link} 
-                        onDelete={handleDelete}
                     />
                 ))}
                 
