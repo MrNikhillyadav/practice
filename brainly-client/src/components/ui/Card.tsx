@@ -46,7 +46,7 @@ const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
             <div className="pt-2">
                 {type === "youtube" && 
-                <iframe className="w-full" 
+                <iframe className="w-full min-w-[10vw] min-h-[22vh] " 
                     src={link.replace("watch", "embed").replace("?v=", "/")} 
                     title="YouTube video player" frameBorder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
