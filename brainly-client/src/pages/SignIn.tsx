@@ -1,17 +1,29 @@
 import axios from "axios";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'sonner'
 
 export default function SignIn(){
         const Navigate = useNavigate()
         const emailRef = useRef<HTMLInputElement>(null);
         const passwordRef = useRef<HTMLInputElement>(null);
 
+        useEffect(() => {
+                emailRef?.current?.focus()
+        },[])
+
         async function SignIn(){
                 const email = emailRef.current?.value;
                 const password = passwordRef.current?.value;
+                const loadId = toast.loading('Signing in...')
+
+                if (!email || !password) {
+                        toast.error('Email and password required, try again!')
+                        toast.dismiss(loadId)
+                        return
+                }
                 
                 const response = await axios.post("http://localhost:3000/api/v1/user/signin", 
                     {
@@ -22,8 +34,17 @@ export default function SignIn(){
 
                 const jwt = response.data.token 
                 localStorage.setItem('token',jwt)
+                console.log("response.status : ", response.status)
+
+                if (response.status === 200) {
+                        Navigate('/dashboard')
+
+                        toast.success(`Signed In successfully! 🎉🥳`)
+                        toast.dismiss(loadId)
+                        return;
+                } 
+               
                 
-                Navigate('/dashboard')
                 
         }
         return (
@@ -44,7 +65,7 @@ export default function SignIn(){
                                         <div className="w-full h-full  flex flex-col gap-4 ">
                                                 <Input reference={emailRef} placeholder={'johndoe@gmail.com'}/>
                                                 <Input reference={passwordRef}  placeholder={'12345'}/>
-                                                <Button  onClick={SignIn} title="Login"/>
+                                                <Button variant="primary" onClick={SignIn} title="Login"/>
                                         </div>
 
                                                 <p className="text-sm text-[#878787] m-2 ">Don't have an account yet ? Click here to  {" "}

@@ -1,23 +1,43 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'sonner'
 
 
 export default function SignUp(){
-        const Navigate = useNavigate()
         const usernameRef = useRef<HTMLInputElement>(null);
         const emailRef = useRef<HTMLInputElement>(null);
         const passwordRef = useRef<HTMLInputElement>(null);
+        const Navigate = useNavigate()
 
+        
+        useEffect(() => {
+                usernameRef?.current?.focus()
+        },[])
+        
         async function signup(){
                 const username = usernameRef.current?.value;
                 const password = passwordRef.current?.value;
                 const email = emailRef.current?.value;
+
+                const loadId = toast.loading('Signing up...')
+
+                if (!email || !password) {
+                        toast.error('Email and password required, try again!')
+                        toast.dismiss(loadId)
+                        return
+                }
+
+                if(!email?.includes('@')){
+                        toast.error("email should include '@' ");
+                        toast.dismiss(loadId)
+                        return;
+                }
+
                 
-                try {
-                        const response = await axios.post("http://localhost:3000/api/v1/user/signup", 
+                const response = await axios.post("http://localhost:3000/api/v1/user/signup", 
                         {
                                 username : username,
                                 email : email,
@@ -25,18 +45,22 @@ export default function SignUp(){
                         }
                 );
 
-                        console.log(response)
-                        alert(' Signup Successfull');
+                toast.dismiss(loadId)
+                
+                if (response.status === 200) {
+                        toast.success(`Signed Up successfully 🎉🥳`)
                         Navigate('/signin')
-                }
-                catch(error){
+                        toast.dismiss(loadId);
+                }      
 
-                        console.log(error.message)
-                }               
-               
-                
-                
         }
+        
+        const isValid = emailRef.current?.value !== "" && 
+                usernameRef.current?.value !== "" && 
+                passwordRef.current?.value !== "";
+
+                console.log("isValid:", isValid)
+
         return (
                 <div className="bg-[#0E0E0E] flex items-center justify-center h-screen w-screen">
                         <div className=" grid grid-cols-2 border w-full  h-full bg-[#0E0E0E]  ">
@@ -57,7 +81,11 @@ export default function SignUp(){
                                                 <Input reference={usernameRef} placeholder={'John Doe'}/>
                                                 <Input reference={emailRef} placeholder={'johndoe@gmail.com'}/>
                                                 <Input reference={passwordRef}  placeholder={'12345'}/>
-                                                <Button  onClick={signup} title="Sign Up"/>
+                                                <Button  
+                                                        title="Sign Up"
+                                                        variant={isValid ? "primary":"secondary" }
+                                                        onClick={signup} 
+                                                />
                                         </div>
 
                                                 <p className="text-sm text-[#878787] m-2 "> If already registered ? Click here to  {" "}
