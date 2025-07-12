@@ -61,9 +61,9 @@ export function CreateContentModal({ open, onClose }: ModalInterface) {
         <div>
             {open && (
                 <div className="bg-[#0e0e0ed0] shadow-md bg-opacity-10 flex justify-center items-center h-screen w-screen top-0 left-0 fixed">
-                    <div className="flex flex-col outline-none justify-center items-center rounded-md drop-shadow-sm bg-[#191919] w-[30vw] p-8">
-                        <div className="flex mb-4 w-full justify-between items-center ">
-                            <h2 className="font-bold text-lg">Add Note</h2>
+                    <div className="flex flex-col  w-[80vw] outline-none justify-center items-center rounded-md drop-shadow-sm bg-[#191919] md:w-[30vw] p-4 md:p-8">
+                        <div className="flex mb-4  w-full justify-between items-center ">
+                            <h2 className="font-bold  md:text-lg">Add Note</h2>
                             <div className="p-1 text-center flex items-center rounded-full hover:bg-[#3E3E3E] cursor-pointer">
                                 <ImCancelCircle  onClick={onClose} />
                             </div>
@@ -74,7 +74,7 @@ export function CreateContentModal({ open, onClose }: ModalInterface) {
                             <p className="text-gray-400 text-sm inline-flex w-full text-start">
                                 choose Content-type
                             </p>
-                            <div className="flex gap-2 items-start w-full">
+                            <div className="flex  h-full gap-2 items-start w-full">
                                 <Button
                                     title="Twitter"
                                     onClick={() => setType(ContentType.Twitter)}

@@ -20,9 +20,9 @@ export  function Button(props : ButtonInterface){
 
   return (
     <button  onClick={props.onClick} className={` ${defaultStyle} ${props.className} flex  items-center justify-center ${variantStyle} `}>
-      <div className="">{props.startIcon}</div>
-      <span  className="hidden md:block pl-2 pr-2">
-        <div className="hidden md:block">{props.title}</div>
+      <div className="hidden md:block">{props.startIcon}</div>
+      <span  className=" pl-2 pr-2">
+        <div className=" ">{props.title}</div>
       </span>
     </button>
   )
