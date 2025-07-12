@@ -62,13 +62,13 @@ export default function SignUp(){
                 console.log("isValid:", isValid)
 
         return (
-                <div className="bg-[#0E0E0E] flex items-center justify-center h-screen w-screen">
-                        <div className=" grid grid-cols-2 border w-full  h-full bg-[#0E0E0E]  ">
+                <div className="bg-[#0E0E0E] flex items-center justify-center  h-screen w-screen">
+                        <div className=" grid md:grid-cols-2 border w-full  h-full bg-[#0E0E0E]  ">
                                 <img 
-                                        className="object-cover w-full h-full "
+                                        className="  md:object-cover w-full h-full  "
                                         src={'https://plus.unsplash.com/premium_photo-1751516658034-37c1fe51505e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEzfGJvOGpRS1RhRTBZfHxlbnwwfHx8fHw%3D'} alt="Logo" />
 
-                                <div className="shadow-md text-white flex-col   p-8 rounded-md bg-[#191919] grid justify-center items-center">
+                                <div className="shadow-md text-white flex-col absolute  z-2  md:static  w-full h-full  p-8 md:rounded-md bg-[#1d1c1cf1] md:bg-[#191919] grid justify-center items-center">
 
                                         <h1 className="text-xl text-white font-semibold text-center">Signup </h1>
                                         
@@ -77,7 +77,7 @@ export default function SignUp(){
                                                 <p className="text-[#878787]">Let's create  your brain.</p>
                                         </div>
                                                 
-                                        <div className="w-full h-full  flex flex-col gap-4 ">
+                                        <div className=" flex flex-col w-full h-full  gap-4 ">
                                                 <Input reference={usernameRef} placeholder={'John Doe'}/>
                                                 <Input reference={emailRef} placeholder={'johndoe@gmail.com'}/>
                                                 <Input reference={passwordRef}  placeholder={'12345'}/>
@@ -88,7 +88,7 @@ export default function SignUp(){
                                                 />
                                         </div>
 
-                                                <p className="text-sm text-[#878787] m-2 "> If already registered ? Click here to  {" "}
+                                                <p className="text-sm text-[#878787] m-2 text-center"> If already registered ? Click here to  {" "}
                                                         <span onClick={() => Navigate('/signin')} 
                                                         className="text-blue-600 cursor-pointer hover:underline"> 
                                                                 Sign in 

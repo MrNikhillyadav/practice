@@ -49,12 +49,12 @@ export default function SignIn(){
         }
         return (
                 <div className="bg-[#0E0E0E] flex items-center justify-center h-screen w-screen">
-                        <div className=" grid grid-cols-2 border w-full  h-full bg-[#0E0E0E]  ">
+                        <div className=" grid md:grid-cols-2 border w-full  h-full bg-[#0E0E0E]  ">
                                 <img 
                                         className="object-cover w-full h-full "
                                         src={'https://plus.unsplash.com/premium_photo-1726126478618-cd7e559633a4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDQwfHx8ZW58MHx8fHx8'} alt="Logo" />
 
-                                <div className="shadow-md text-white flex-col   p-8 rounded-md bg-[#191919] grid justify-center items-center">
+                                <div className="shadow-md text-white flex-col  p-8 md:rounded-md absolute md:static w-full h-full bg-[#1d1c1ce4] md:bg-[#191919] grid justify-center items-center">
                                         <h1 className="text-xl text-white font-semibold text-center">Signin </h1>
 
                                         <div className="flex flex-col gap-2 justify-center items-center">
@@ -68,7 +68,7 @@ export default function SignIn(){
                                                 <Button variant="primary" onClick={SignIn} title="Login"/>
                                         </div>
 
-                                                <p className="text-sm text-[#878787] m-2 ">Don't have an account yet ? Click here to  {" "}
+                                                <p className="text-sm text-[#878787] m-2 text-center px-12 md:px-2">Don't have an account yet ? Click here to  {" "}
                                                         <span onClick={() => Navigate('/signup')} 
                                                         className="text-blue-600 cursor-pointer hover:underline"> 
                                                                 Sign up 
