@@ -1,4 +1,4 @@
-import * as dotenv from 'dotenv';
+import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import cors from 'cors';
@@ -7,6 +7,7 @@ import ConnectDB from './config';
 import contentRouter from './routes/content';
 import authMiddleware from './middlewares/authMiddleware';
 import brainRouter from './routes/brain';
+const PORT = process.env.PORT || 4000
 
 const app = express();
 
@@ -20,8 +21,8 @@ app.use('/api/v1/brain', authMiddleware , brainRouter)
 
 ConnectDB()
     .then(() => {
-        app.listen(3000, () => {
-            console.log('server running on Port 3000');
+        app.listen(PORT, () => {
+            console.log(`server running on Port ${PORT}` );
         });
     })
     .catch((error) => {

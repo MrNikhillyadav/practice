@@ -2,7 +2,6 @@ import Router, {Request, Response } from 'express';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { UserModel } from '../models/model';
-import { JWT_SECRET } from '../config';
 import { loginSchema, signUpSchema } from '../types';
 
 const userRouter = Router()
@@ -83,7 +82,7 @@ userRouter.post('/signin', async(req:Request, res:Response) => {
     
                 const token =  jwt.sign({
                     id : user._id.toString()
-                }, JWT_SECRET)
+                }, process.env.JWT_SECRET || "")
         
                 res.status(200).json({
                     message: "logged in!",
