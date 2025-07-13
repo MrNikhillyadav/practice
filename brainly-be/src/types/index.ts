@@ -23,3 +23,14 @@ export const loginSchema = z.object({
         .min(3,"password too short!")
         .max(15, "password too large")
 })
+
+
+const CONTENT_TYPES = ["youtube","twitter"] as const;
+
+
+export const contentSchema = z.object({
+    title : z.string(),
+    link : z.string(),
+    type : z.enum(CONTENT_TYPES)
+
+})

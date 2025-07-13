@@ -1,5 +1,6 @@
 import Router, {Request,Response} from 'express';
 import { ContentModel } from '../models/model';
+import { contentSchema} from '../types';
 
 const contentRouter = Router();
 
@@ -24,15 +25,21 @@ contentRouter.get('/all-content', async (req:Request, res:Response) => {
 })
 
 contentRouter.post('/create', async(req:Request, res:Response) => {
-    const {title, link, type} = req.body;
+    const parsedData = contentSchema.safeParse(req.body)
     const userId = req.userId;
+
+    if(!parsedData.success){
+        res.status(400).json({
+            message: "Invalid input"
+        })
+    }
 
     try {
 
         const content = await  ContentModel.create({
-            title,
-            link,
-            type,
+            title:parsedData.data?.title,
+            link:parsedData.data?.link,
+            type:parsedData.data?.type,
             userId
         })
     
@@ -111,17 +118,23 @@ contentRouter.delete('/remove/:contentId', async(req,res) => {
 
 contentRouter.put('/update/:contentId', async(req:Request, res:Response) => {
     const contentId = req.params.contentId;
-    const {title, link, type} = req.body;
     const userId = req.userId;
+    const parsedData = contentSchema.safeParse(req.body)
+
+    if(!parsedData.success){
+        res.status(400).json({
+            message: "Invalid input"
+        })
+    }
 
     try {
 
         const content = await ContentModel.findByIdAndUpdate(
            contentId,
            { 
-                link,
-                title, 
-                type
+            title:parsedData.data?.title,
+            link:parsedData.data?.link,
+            type:parsedData.data?.type,
             }
         )
 

@@ -7,7 +7,7 @@ import { loginSchema, signUpSchema } from '../types';
 
 const userRouter = Router()
 
-userRouter.get('/', (req, res) => {
+userRouter.get('/', (req:Request, res:Response) => {
 
     res.json({
         message: "healthy server"
