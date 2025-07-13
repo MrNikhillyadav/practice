@@ -1,10 +1,10 @@
-import Router from 'express';
+import Router, { Request, Response } from 'express';
 import { ContentModel, LinkModel, UserModel } from '../models/model';
 import { nanoid } from 'nanoid';
 
 const brainRouter = Router();
 
-brainRouter.post('/share',async(req,res) => {
+brainRouter.post('/share',async( req:Request, res:Response) => {
     const share = req.body.share;
     const userId = req.userId;
 
@@ -73,7 +73,7 @@ brainRouter.post('/share',async(req,res) => {
     
 })
 
-brainRouter.get('/share/:sharelink',async(req,res) => {
+brainRouter.get('/share/:sharelink',async( req:Request, res:Response) => {
     const hash = req.params.sharelink;
 
     try{
@@ -113,7 +113,7 @@ brainRouter.get('/share/:sharelink',async(req,res) => {
     
 })
 
-brainRouter.post('/share-by-id',async(req,res) => {
+brainRouter.post('/share-by-id',async( req:Request, res:Response) => {
     const {contentId, share} = req.body;
     const userId = req.userId;
 
@@ -171,7 +171,7 @@ brainRouter.post('/share-by-id',async(req,res) => {
  
 })
 
-brainRouter.get('/share-by-id/:contentId',async(req,res) => {
+brainRouter.get('/share-by-id/:contentId',async( req:Request, res:Response) => {
     const hash = req.params.contentId;
 
     try{

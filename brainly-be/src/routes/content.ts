@@ -1,10 +1,10 @@
-import Router from 'express';
+import Router, {Request,Response} from 'express';
 import { ContentModel } from '../models/model';
 
 const contentRouter = Router();
 
 
-contentRouter.get('/all-content', async (req,res) => {
+contentRouter.get('/all-content', async (req:Request, res:Response) => {
     const userId = req.userId;
     
     const contents = await ContentModel.find({
@@ -23,7 +23,7 @@ contentRouter.get('/all-content', async (req,res) => {
     })
 })
 
-contentRouter.post('/create', async(req,res) => {
+contentRouter.post('/create', async(req:Request, res:Response) => {
     const {title, link, type} = req.body;
     const userId = req.userId;
 
@@ -57,7 +57,7 @@ contentRouter.post('/create', async(req,res) => {
     }
 })
 
-contentRouter.get('/:contentId', async (req,res) => {
+contentRouter.get('/:contentId', async (req:Request, res:Response) => {
     const userId = req.userId;
     const contentId = req.params.contentId;
 
@@ -109,7 +109,7 @@ contentRouter.delete('/remove/:contentId', async(req,res) => {
     }
 })
 
-contentRouter.put('/update/:contentId', async(req,res) => {
+contentRouter.put('/update/:contentId', async(req:Request, res:Response) => {
     const contentId = req.params.contentId;
     const {title, link, type} = req.body;
     const userId = req.userId;

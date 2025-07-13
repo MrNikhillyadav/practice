@@ -1,8 +1,9 @@
-import Router from 'express';
+import Router, {Request, Response } from 'express';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { UserModel } from '../models/model';
 import { JWT_SECRET } from '../config';
+import { loginSchema, signUpSchema } from '../types';
 
 const userRouter = Router()
 
@@ -14,7 +15,15 @@ userRouter.get('/', (req, res) => {
     
 });
 
-userRouter.post('/signup', async(req, res) => {
+userRouter.post('/signup', async(req:Request, res:Response) => {
+    const parsedData = signUpSchema.safeParse(req.body);
+
+    if(!parsedData.success){
+        res.status(400).json({
+            message : "Invalid input"
+        })
+        return;
+    }
 
     const {username,email,password} = req.body;
     const hashedPassword = await bcrypt.hash(password, 5)
@@ -22,8 +31,8 @@ userRouter.post('/signup', async(req, res) => {
     try {
 
         const user = await UserModel.create({
-            username,
-            email,
+            username: parsedData.data.username,
+            email: parsedData.data.email,
             password : hashedPassword,
         })
     
@@ -40,14 +49,19 @@ userRouter.post('/signup', async(req, res) => {
     }
 });
 
-userRouter.post('/signin', async(req, res) => {
+userRouter.post('/signin', async(req:Request, res:Response) => {
+    const parsedData = loginSchema.safeParse(req.body);
 
-    const {email, password} = req.body;
+    if(!parsedData.success){
+        res.status(400).json({
+            message: "Invalid input type"
+        })
+    }
 
     try {
 
         const user = await UserModel.findOne({
-            email,
+            email : parsedData.data?.email,
         })
         
         if(!user){
@@ -58,28 +72,31 @@ userRouter.post('/signin', async(req, res) => {
 
             return;
         }
-    
-        const decodedPassword = user.password ? await bcrypt.compare(password, user.password):false;
-    
-        if(decodedPassword){
 
-            const token =  jwt.sign({
-                id : user._id.toString()
-            }, JWT_SECRET)
+        const password = parsedData.data?.password
+        const UserPassword = user.password
+
+        if( typeof password == "string" && typeof UserPassword == "string" ){
+            const decodedPassword = await bcrypt.compare(password, UserPassword);
+
+            if(decodedPassword){
     
-            res.status(200).json({
-                message: "logged in!",
-                token
-            });
-
-        }
-        else {
-
-            res.status(403).json({
-                message: "Incorrect Credentials"
-            })
-        }
+                const token =  jwt.sign({
+                    id : user._id.toString()
+                }, JWT_SECRET)
         
+                res.status(200).json({
+                    message: "logged in!",
+                    token
+                });
+            }
+            else {
+    
+                res.status(403).json({
+                    message: "Incorrect Credentials"
+                })
+            }
+        } 
     }
     catch(e) {
 

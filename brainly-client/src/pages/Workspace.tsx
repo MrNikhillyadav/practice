@@ -10,7 +10,7 @@ export default function Workspace({filter}:WorkspaceInterface){
     return (
         <div className="w-full h-screen bg-[#0E0E0E]  text-white">
                 <div className='flex  md:rounded-2xl bg-[#252525] '>
-                    <div className='hidden md:block'>
+                    <div>
                         <Sidebar/>
                     </div>
                     <Dashboard filter={filter} />

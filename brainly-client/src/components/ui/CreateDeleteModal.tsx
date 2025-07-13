@@ -28,7 +28,7 @@ export function CreateDeleteModal({id,open,onClose}:DeleteModalInterface){
         <div>
             { open && (
                  <div className="bg-[#0e0e0ed0] shadow-md bg-opacity-10 flex justify-center items-center h-screen w-screen top-0 left-0 fixed">
-                    <div className=" flex flex-col max-w-4xl items-start  gap-6 bg-[#191919] rounded-lg shadow-xl p-12">
+                    <div className=" flex flex-col max-w-4xl items-start  gap-6 bg-[#191919] rounded-lg shadow-xl  md:p-12">
 
                         <div className="flex justify-between w-full items-center">
                             <h1 className="text-xl font-md">Delete Post</h1>
