@@ -6,7 +6,8 @@ import adminRouter from './routes/admin';
 import courseRouter from './routes/course';
 import purchaseRouter from './routes/purchases';
 import userRouter from './routes/user';
-import ConnectDB from './config/config';
+import ConnectDB from './config';
+import {PORT} from "./config"
 
 const app = express();
 
@@ -19,14 +20,14 @@ app.use("api/v1/course/", courseRouter)
 app.use("api/v1/purchase/", purchaseRouter)
 
 ConnectDB()
-.then((PORT) => {
-    app.listen(prompt, () => {
-        console.log(`server running at PORT ${PORT}`)
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`server running on Port`,PORT );
+        });
     })
-})
-.catch((error) => {
-    console.error("Failed to connect to server")
-})
+    .catch((error) => {
+        console.error('Failed to connect to the database:', error);
+    });
 
 
 export default app;
