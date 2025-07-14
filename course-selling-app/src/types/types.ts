@@ -2,7 +2,7 @@ import {z} from 'zod'
 
 export const userSchema = z.object({
     email : z.string().email("Invalid email"),
-    password : z.string().min(4,"password too short"),
+    password : z.string().min(4,"password too short").max(12,"password too long"),,
     firstName : z.string().min(2,"firstname too short").max(16,"firstname too large"),
     lastName : z.string().min(1,"lastName too short").max(10,"lastName too large").optional(),
 })
@@ -10,7 +10,7 @@ export type UserInputType = z.infer<typeof userSchema>
 
 export const adminSchema = z.object({
     email : z.string().email("Invalid email"),
-    password : z.string().min(4,"password too short"),
+    password : z.string().min(4,"password too short").max(12,"password too long"),
     firstName : z.string().min(2,"firstname too short").max(16,"firstname too large"),
     lastName : z.string().min(1,"lastName too short").max(10,"lastName too large").optional(),
 })
