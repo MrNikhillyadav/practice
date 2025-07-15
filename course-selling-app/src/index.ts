@@ -2,10 +2,9 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 import express, { Request, response, Response } from 'express';
 import cors from 'cors'
-import adminRouter from './routes/admin';
-import courseRouter from './routes/course';
-import purchaseRouter from './routes/purchases';
-import userRouter from './routes/user';
+import adminRouter from './routes/adminRouter';
+import courseRouter from './routes/courseRouter';
+import userRouter from './routes/userRouter';
 import ConnectDB from './config';
 import {PORT} from "./config"
 
@@ -14,10 +13,16 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
-app.use("api/v1/admin/", adminRouter)
-app.use("api/v1/user/", userRouter)
-app.use("api/v1/course/", courseRouter)
-app.use("api/v1/purchase/", purchaseRouter)
+app.get('/', (req,res) => {
+    res.json({
+        message : "server is healthy!"
+    })
+})
+
+app.use("/api/v1/admin", adminRouter)
+app.use("/api/v1/user", userRouter)
+app.use("/api/v1/course", courseRouter)
+
 
 ConnectDB()
     .then(() => {
