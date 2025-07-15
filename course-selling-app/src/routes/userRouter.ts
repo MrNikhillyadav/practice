@@ -3,7 +3,8 @@ import bcrypt from 'bcrypt'
 import jwt  from "jsonwebtoken";
 import { JWT_ADMIN_PASSWORD } from "../config";
 import { UserZodSignInSchema, UserZodSignUpSchema } from "../types/types";
-import { UserModel } from "../models/models";
+import { PurchaseModel, UserModel } from "../models/models";
+import userAuthMiddleware from "../middlewares/userAuth";
 
 const userRouter = Router();
 
@@ -106,6 +107,13 @@ userRouter.post('/signin', async(req:Request, res: Response) => {
             error : "internal server error"
         })
     }
+})
+
+userRouter.get('/purchases',userAuthMiddleware, async(req: Request, res:Response) => {
+    const userId = req.userId;
+
+    const purchases = await PurchaseModel.findById({userId}).populate("courses")
+    console.log('purchases: ', purchases);
 })
 
 export default userRouter;

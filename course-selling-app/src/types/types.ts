@@ -36,6 +36,7 @@ export const courseZodSchema = z.object({
     creatorId : z
     .string()
     .regex(/^[a-f\d]{24}$/i, "invalid creatorId : must be of 24 characters hex id")
+    .optional()
 })
 export type courseInputType = z.infer<typeof courseZodSchema>
 

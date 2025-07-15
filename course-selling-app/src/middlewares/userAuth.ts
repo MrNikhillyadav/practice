@@ -1,0 +1,44 @@
+
+import { NextFunction,Request,Response } from "express";
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { JWT_USER_PASSWORD } from "../config";
+
+
+
+export default async function userAuthMiddleware(req:Request,res:Response,next:NextFunction){
+
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
+        console.log('token: ', token);
+    
+        if(!token) {
+    
+            res.status(403).json({
+                message : 'No token found!'
+            })
+            return;
+        }
+    
+        const decodedPayload =  await jwt.verify(token,JWT_USER_PASSWORD || "" ) as JwtPayload;
+        console.log('decodedPayload: ', decodedPayload);
+
+        if(!decodedPayload) {
+            res.json({
+                message : "Invalid token"
+            })
+        }
+        
+
+        req.userId = decodedPayload.id;
+        next();
+        
+    }
+    catch(e){
+
+        res.status(500).json({
+            error : e
+        })
+        return;
+    }
+
+}

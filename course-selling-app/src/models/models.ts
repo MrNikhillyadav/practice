@@ -55,15 +55,15 @@ const courseSchema = new Schema<ICourseDocument>({
     desc : {type: String, required : true, unique : true},
     price : {type: Number, required : true},
     imageUrl :{type: String, required : true},
-    creatorId : { type : Schema.Types.ObjectId, ref :"User", required: true }
+    creatorId : { type : Schema.Types.ObjectId, ref :"Admin", required: true }
 })
 
 const purchaseSchema = new Schema<IPurchaseDocument>({
-    courseId : {type : Schema.Types.ObjectId, ref: "Course",required : true},
-    userId : {type : Schema.Types.ObjectId, ref: "User",required : true}
+    courseId : {type : Schema.Types.ObjectId,required : true},
+    userId : {type : Schema.Types.ObjectId,required : true}
 })
 
 export const UserModel = mongoose.model<IUserDocument>("User",userSchema);
 export const AdminModel = mongoose.model<IAdminDocument>("Admin",adminSchema);
-export const CourseModel = mongoose.model<ICourseDocument>("Courses",courseSchema);
+export const  CourseModel = mongoose.model<ICourseDocument>("Courses",courseSchema);
 export const PurchaseModel = mongoose.model<IPurchaseDocument>("Purchases",purchaseSchema);
