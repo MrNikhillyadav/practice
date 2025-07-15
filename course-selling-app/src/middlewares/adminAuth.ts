@@ -33,8 +33,8 @@ export default async function adminAuthMiddleware(req:Request,res:Response,next:
     }
     catch(e){
 
-        res.status(500).json({
-            error : e
+        res.status(403).json({
+            error : "Unauthorized "
         })
         return;
     }

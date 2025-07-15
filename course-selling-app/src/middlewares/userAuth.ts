@@ -9,7 +9,6 @@ export default async function userAuthMiddleware(req:Request,res:Response,next:N
 
     try {
         const token = req.headers.authorization?.split(' ')[1];
-        console.log('token: ', token);
     
         if(!token) {
     
@@ -20,7 +19,6 @@ export default async function userAuthMiddleware(req:Request,res:Response,next:N
         }
     
         const decodedPayload =  await jwt.verify(token,JWT_USER_PASSWORD || "" ) as JwtPayload;
-        console.log('decodedPayload: ', decodedPayload);
 
         if(!decodedPayload) {
             res.json({

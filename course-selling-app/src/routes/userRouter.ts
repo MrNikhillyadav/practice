@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import bcrypt from 'bcrypt'
 import jwt  from "jsonwebtoken";
-import { JWT_ADMIN_PASSWORD } from "../config";
+import { JWT_USER_PASSWORD } from "../config";
 import { UserZodSignInSchema, UserZodSignUpSchema } from "../types/types";
 import { PurchaseModel, UserModel } from "../models/models";
 import userAuthMiddleware from "../middlewares/userAuth";
@@ -40,7 +40,7 @@ userRouter.post('/signup', async(req:Request, res: Response) => {
     
 
         res.status(201).json({
-            message : "signed up as Admin"
+            message : "signed up as User"
         })
     }
     catch(error){
@@ -86,7 +86,7 @@ userRouter.post('/signin', async(req:Request, res: Response) => {
     
                 const token =  jwt.sign({
                     id : admin._id
-                }, JWT_ADMIN_PASSWORD || "")
+                }, JWT_USER_PASSWORD || "")
         
                 res.status(201).json({
                     message: "logged in!",
@@ -111,9 +111,36 @@ userRouter.post('/signin', async(req:Request, res: Response) => {
 
 userRouter.get('/purchases',userAuthMiddleware, async(req: Request, res:Response) => {
     const userId = req.userId;
+    console.log('userId: ', userId);
 
-    const purchases = await PurchaseModel.findById({userId}).populate("courses")
-    console.log('purchases: ', purchases);
+    try{
+        
+        const purchases = await PurchaseModel.find({
+            userId 
+        })
+    
+        if(!purchases){
+            res.status(404).json({
+                message : "No purchased course"
+            })
+            return;
+        }
+        console.log('purchases: ', purchases);
+    
+        res.status(200).json({
+            purchases : purchases
+        })
+
+    }
+    catch(error){
+
+        res.status(500).json({
+            error : "internal server error"
+        })
+    }
+
+
+
 })
 
 export default userRouter;
