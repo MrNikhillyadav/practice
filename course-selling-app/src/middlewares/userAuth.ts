@@ -3,8 +3,6 @@ import { NextFunction,Request,Response } from "express";
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { JWT_USER_PASSWORD } from "../config";
 
-
-
 export default async function userAuthMiddleware(req:Request,res:Response,next:NextFunction){
 
     try {
@@ -15,6 +13,7 @@ export default async function userAuthMiddleware(req:Request,res:Response,next:N
             res.status(403).json({
                 message : 'No token found!'
             })
+
             return;
         }
     
@@ -38,7 +37,5 @@ export default async function userAuthMiddleware(req:Request,res:Response,next:N
         });
         
         return;
-}
-
-
+    }
 }
