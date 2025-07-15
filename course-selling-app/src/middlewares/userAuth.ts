@@ -31,12 +31,14 @@ export default async function userAuthMiddleware(req:Request,res:Response,next:N
         next();
         
     }
-    catch(e){
+    catch (e) {
 
-        res.status(500).json({
-            error : e
-        })
+        res.status(403).json({
+            message: 'Authentication as user failed: Invalid or expired token. Please log in again.'
+        });
+        
         return;
-    }
+}
+
 
 }

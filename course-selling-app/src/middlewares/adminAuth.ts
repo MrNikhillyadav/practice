@@ -31,12 +31,14 @@ export default async function adminAuthMiddleware(req:Request,res:Response,next:
         next();
         
     }
-    catch(e){
+    catch (e) {
 
         res.status(403).json({
-            error : "Unauthorized "
-        })
+            message: 'Authentication as admin failed: Invalid or expired token. Please log in again.'
+        });
+
         return;
-    }
+}
+
 
 }
