@@ -41,7 +41,7 @@ export default function Dashboard({ filter }: DashboardInterface) {
             </div>
                 
 
-            <div className="p-2 md:p-4  border   z-2 md:z-0 backdrop-blur-2xl md:border-0 bg-[#191919da] md:bg-[#0E0E0E] rounded-xl  fixed top-6 left-6 right-6 md:static flex justify-between items-start">
+            <div className="p-2 md:p-4   outline-none  z-2 md:z-0 backdrop-blur-2xl md:border-0 bg-[#191919da] md:bg-[#0E0E0E] rounded-xl  fixed top-6 left-6 right-6 md:static flex justify-between items-start">
                 <h1 className="hidden md:block text-md md:text-xl font-medium">Dashboard</h1>
 
                 <div className="md:hidden flex justify-center items-center gap-2  text-md md:text-xl ml-2 font-medium">

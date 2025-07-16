@@ -48,7 +48,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarInterface) {
   return (
     <>
       {/* 🔹 Desktop Sidebar */}
-      <div className="hidden md:flex items-center md:flex-col h-screen justify-between md:bg-[#191919e7] w-72 md:p-4 md:rounded-2xl">
+      <div className="hidden md:flex items-center  md:flex-col h-screen justify-between md:bg-[#191919e7] w-72 md:p-4 md:rounded-2xl">
         <div className='flex flex-col gap-8 w-full justify-center items-center'>
           <div className="flex w-full p-4 justify-between items-center font-bold md:text-xl">
             My Brain
@@ -70,7 +70,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarInterface) {
       </div>
 
       {/* 🔹 Mobile Sidebar */}
-      <div className="md:hidden flex flex-col items-center backdrop-blur-2xl h-screen fixed z-4 border border-[#414040] top-0 -left-4 mt-0 p-8 bg-[#191919e7] w-72 rounded-2xl drop-shadow-2xl">
+      <div className="md:hidden flex flex-col items-center  backdrop-blur-2xl h-screen fixed z-4 border border-[#414040] top-0 -left-4 mt-0 p-8 bg-[#191919e7] w-72 rounded-2xl drop-shadow-2xl">
         <div className='w-full flex flex-col justify-between items-center gap-8 p-4'>
           <div className="flex w-full justify-between items-center font-bold md:text-xl">
             My Brain

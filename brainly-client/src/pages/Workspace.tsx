@@ -18,7 +18,7 @@ export default function Workspace({filter}:WorkspaceInterface){
     return (
         <div className="w-full h-screen bg-[#0E0E0E]  text-white">
             {!isSidebarOpen && (
-                <div className='text-3xl  transition-all duration-200 cursor-pointer absolute top-6  left-2 z-50 '>
+                <div className='text-3xl hidden md:block  transition-all duration-200 cursor-pointer absolute top-6  left-2 z-50 '>
                         < MdOutlineKeyboardDoubleArrowRight  
                             onClick={() => setIsSidebarOpen(true)}
                             // onMouseEnter={() => setIsSidebarOpen(true)}
