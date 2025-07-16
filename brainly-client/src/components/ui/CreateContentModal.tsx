@@ -58,9 +58,9 @@ export function CreateContentModal({ open, onClose }: ModalInterface) {
         linkRef.current?.value !== "";
 
     return (
-        <div>
+        <>
             {open && (
-                <div className="bg-[#0e0e0ed0]  shadow-md bg-opacity-10 flex justify-center items-center  h-screen w-screen top-0 left-0 fixed ">
+                <div className="bg-[#0e0e0ed0] shadow-md bg-opacity-10 flex justify-center items-center  h-screen w-screen fixed top-0 left-0  ">
                     <div className="flex flex-col  w-[80vw] outline-none justify-center items-center rounded-md drop-shadow-sm bg-[#191919] md:w-[30vw] p-4 md:p-8">
                         <div className="flex mb-4  w-full justify-between items-center ">
                             <h2 className="font-bold  md:text-lg">Add Note</h2>
@@ -96,6 +96,6 @@ export function CreateContentModal({ open, onClose }: ModalInterface) {
                     </div>
                 </div>
             )}
-        </div>
+        </>
     );
 }

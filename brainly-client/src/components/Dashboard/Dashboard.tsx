@@ -16,7 +16,7 @@ interface DashboardInterface {
 
 export default function Dashboard({ filter }: DashboardInterface) {
     const [isOpen, SetIsOpen] = useState(false);
-    const [isSideNavOpen,setIsSideNavOpen] = useState(false);
+    const [isSideNavOpen,setIsSideNavOpen] = useState(true);
     const { contents, refresh } = useContent();
     const location = useLocation();
 
@@ -30,7 +30,19 @@ export default function Dashboard({ filter }: DashboardInterface) {
         : contents;
 
     return (
-        <div className="p-4 w-full h-full min-h-screen rounded-2xl py-2 border-4 border-[#252525] bg-[#0E0E0E]">
+        <div className="p-4 w-full h-full min-h-screen rounded-2xl py-2 border-4 border-[#252525] bg-[#0E0E0E] ">
+            <CreateContentModal 
+                open={isOpen} 
+                onClose={() => SetIsOpen(false)} 
+            />
+
+            
+                
+            <div className="md:hidden absolute z-4 border  ">
+                <Sidebar isOpen={isSideNavOpen} onClose={() => setIsSideNavOpen(false)} />
+            </div>
+                
+
             <div className="p-2 md:p-4  z-2 md:z-0 backdrop-blur-2xl md:border-0 bg-[#191919da] md:bg-[#0E0E0E] rounded-xl  fixed top-6 left-6 right-6 md:static flex justify-between items-start">
                 <h1 className="hidden md:block text-md md:text-xl font-medium">Dashboard</h1>
 
@@ -41,22 +53,9 @@ export default function Dashboard({ filter }: DashboardInterface) {
                     My Brain 
                 </div>
                 
-                    <div className="md:hidden ">
-                        {
-                            isSideNavOpen && (
-                                <Sidebar isOpen={isSideNavOpen} onClose={() => setIsSideNavOpen(false)} />
-                            )
-                        }
-                    </div>
+                 
                 
-
-                <div className="flex justify-center  transition-all duration-300 items-center">
-                    <CreateContentModal 
-                        open={isOpen} 
-                        onClose={() => SetIsOpen(false)} 
-                    />
-                </div>
-
+            {/* Button : ADD | SHARE */}
                 <div className="flex items-center justify-between gap-1 md:gap-4">
                     <Button
                         variant="primary"
@@ -67,6 +66,7 @@ export default function Dashboard({ filter }: DashboardInterface) {
                     <Button title="Share" startIcon={<FaShare />} />
                 </div>
             </div>
+
             {/* cards */}
             <div className="flex flex-wrap gap-6 p-2 mt-16 md:mt-8">
 

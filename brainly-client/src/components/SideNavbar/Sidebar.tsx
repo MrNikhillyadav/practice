@@ -60,7 +60,7 @@ export default function Sidebar({isOpen,onClose}:SidebarInterface) {
 
       {/* mobile screen sidebar */}
      {isOpen && (
-         <div className="md:hidden  backdrop-blur-2xl h-screen absolute z-2 top-0 -left-4 md:static p-4 bg-[#191919] md:bg-[#252525] w-72 mt-1  rounded-2xl">
+         <div className="md:hidden  backdrop-blur-2xl h-screen fixed  z-4 border border-b-[#4a4949] border-l-[#191919] border-t-[#191919]  border-r-[#4a4949] top-0 -left-4 mt-0 md:static p-4 bg-[#191919e7] md:bg-[#252525] w-72  rounded-2xl  drop-shadow-2xl">
         <div className="p-4">
           <div className=" flex md:block justify-between items-center font-bold md:text-xl">
             My Brain
@@ -70,7 +70,7 @@ export default function Sidebar({isOpen,onClose}:SidebarInterface) {
           </div>
         </div>
 
-        <div className=" w-full">
+        <div className=" w-full mt-4">
           {
             items.map(({ id, title, icon, path }) => (
               <Link to={path} key={id} className={`cursor-pointer rounded-lg  block p-1 ${location.pathname === path ? 'bg-[#3E3E3E]' : ''}`}>
