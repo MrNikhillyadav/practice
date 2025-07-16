@@ -4,6 +4,7 @@ import { ImYoutube } from "react-icons/im";
 import { RxDashboard } from "react-icons/rx";
 import { Link, useLocation } from "react-router-dom";
 import { MdCancel } from "react-icons/md";
+import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
 
 const items = [
   {
@@ -37,12 +38,14 @@ export default function Sidebar({isOpen,onClose}:SidebarInterface) {
   return (
     <div >
       {/* desktop screen sidebar */}
-        <div className="hidden md:block h-screen  bg-[#191919] md:bg-[#252525] w-72 mt-1 md:p-4 md:rounded-2xl">
+        <div className="hidden md:block h-screen  bg-[#191919] md:bg-[#252525] w-72  md:p-4 md:rounded-2xl">
         <div className="p-4">
           <div className=" flex justify-between items-center font-bold md:text-xl">
             My Brain
-            <div className=''>
-              <MdCancel/>
+            <div 
+              onClick={onClose}
+              className='text-2xl cursor-pointer'>
+              <MdOutlineKeyboardDoubleArrowLeft/>
             </div>
           </div>
         </div>

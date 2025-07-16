@@ -66,7 +66,7 @@ export default function Dashboard({ filter }: DashboardInterface) {
             </div>
 
             {/* cards */}
-            <div className="flex flex-wrap gap-6 p-2 mt-16 md:mt-8">
+            <div className="flex flex-wrap gap-6 p-2 mt-16 md:mt-0">
 
                 {filteredContents.map(({ _id, title, link, type }) => (
                     <Card 
