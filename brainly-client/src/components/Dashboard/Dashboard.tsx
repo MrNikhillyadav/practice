@@ -30,7 +30,7 @@ export default function Dashboard({ filter }: DashboardInterface) {
         : contents;
 
     return (
-        <div className="p-4 w-full h-full min-h-screen rounded-2xl py-2 border-4 border-[#252525] bg-[#0E0E0E] ">
+        <div className="p-6 w-full h-full min-h-screen rounded-2xl py-2 border-4 border-[#191919e7] bg-[#0E0E0E] ">
             <CreateContentModal 
                 open={isOpen} 
                 onClose={() => SetIsOpen(false)} 
@@ -41,7 +41,7 @@ export default function Dashboard({ filter }: DashboardInterface) {
             </div>
                 
 
-            <div className="p-2 md:p-4  z-2 md:z-0 backdrop-blur-2xl md:border-0 bg-[#191919da] md:bg-[#0E0E0E] rounded-xl  fixed top-6 left-6 right-6 md:static flex justify-between items-start">
+            <div className="p-2 md:p-4  border   z-2 md:z-0 backdrop-blur-2xl md:border-0 bg-[#191919da] md:bg-[#0E0E0E] rounded-xl  fixed top-6 left-6 right-6 md:static flex justify-between items-start">
                 <h1 className="hidden md:block text-md md:text-xl font-medium">Dashboard</h1>
 
                 <div className="md:hidden flex justify-center items-center gap-2  text-md md:text-xl ml-2 font-medium">
@@ -66,7 +66,7 @@ export default function Dashboard({ filter }: DashboardInterface) {
             </div>
 
             {/* cards */}
-            <div className="flex flex-wrap gap-6 p-2 mt-16 md:mt-0">
+            <div className="flex flex-wrap gap-6 p-2 mt-18 md:mt-0">
 
                 {filteredContents.map(({ _id, title, link, type }) => (
                     <Card 
