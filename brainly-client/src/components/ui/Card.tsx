@@ -18,7 +18,13 @@ export function Card({ id, title, link, type,}: CardProps) {
 const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
     
     return <div>
-        <div className="p-4 backdrop-blur-2xl bg-[#191919c0] bg-opacity-0 border shadow-md border-[#252525] rounded-2xl max-w-72   min-h-48 min-w-72">
+                 <CreateDeleteModal 
+                        id = {id}
+                        open = {isDeleteModalOpen}
+                        onClose={() => setIsDeleteModalOpen(false)}
+                    />
+        <div className="p-4 backdrop-blur-2xl bg-[#191919b9] bg-opacity-0 border shadow-md border-[#252525] rounded-2xl max-w-72   min-h-48 min-w-72">
+
             <div className="flex items-center  justify-between">
                 <div className="flex items-center gap-2  text-sm">
                     <div className="text-gray-500 ">
@@ -36,13 +42,7 @@ const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
                 </div>
             </div>
 
-            <div >
-                 <CreateDeleteModal 
-                        id = {id}
-                        open = {isDeleteModalOpen}
-                        onClose={() => setIsDeleteModalOpen(false)}
-                    />
-            </div>
+           
 
             <div className="pt-2">
                 {type === "youtube" && 

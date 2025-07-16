@@ -16,7 +16,7 @@ interface DashboardInterface {
 
 export default function Dashboard({ filter }: DashboardInterface) {
     const [isOpen, SetIsOpen] = useState(false);
-    const [isSideNavOpen,setIsSideNavOpen] = useState(true);
+    const [isSideNavOpen,setIsSideNavOpen] = useState(false);
     const { contents, refresh } = useContent();
     const location = useLocation();
 
@@ -35,8 +35,6 @@ export default function Dashboard({ filter }: DashboardInterface) {
                 open={isOpen} 
                 onClose={() => SetIsOpen(false)} 
             />
-
-            
                 
             <div className="md:hidden absolute z-4 border  ">
                 <Sidebar isOpen={isSideNavOpen} onClose={() => setIsSideNavOpen(false)} />
