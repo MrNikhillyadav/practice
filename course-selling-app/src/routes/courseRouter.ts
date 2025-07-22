@@ -13,9 +13,8 @@ courseRouter.post('/purchase/:courseId', userAuthMiddleware, async(req:Request, 
             userId,
             courseId
         })
-
         
-            res.status(200).json({
+            res.status(201).json({
                 message : `purchased course with courseId: ${courseId}`
             })
     }

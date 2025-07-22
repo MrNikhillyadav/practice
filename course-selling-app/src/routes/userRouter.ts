@@ -10,7 +10,7 @@ const userRouter = Router();
 
 userRouter.get('/', (req:Request, res:Response) => {
 
-    res.json({
+    res.status(200).json({
         message: "healthy server"
     });
     
@@ -19,7 +19,7 @@ userRouter.get('/', (req:Request, res:Response) => {
 
 userRouter.post('/signup', async(req:Request, res: Response) => {
     const parsedData = UserZodSignUpSchema.safeParse(req.body);
-    const password = parsedData.data?.password || "" 
+    const password = parsedData.data?.password || "" ;
 
     if(!parsedData.success){
         res.status(403).json({
@@ -37,7 +37,6 @@ userRouter.post('/signup', async(req:Request, res: Response) => {
             email : parsedData.data?.email,
             password : hashedPassword
         })
-    
 
         res.status(201).json({
             message : "signed up as User"
@@ -58,7 +57,7 @@ userRouter.post('/signin', async(req:Request, res: Response) => {
     const email = parsedData.data?.email ;
 
     if(!parsedData.success){
-        res.json({
+        res.status(403).json({
             message : "Invalid input"
         })
         return;
@@ -111,7 +110,6 @@ userRouter.post('/signin', async(req:Request, res: Response) => {
 
 userRouter.get('/purchases',userAuthMiddleware, async(req: Request, res:Response) => {
     const userId = req.userId;
-    console.log('userId: ', userId);
 
     try{
         
@@ -130,7 +128,6 @@ userRouter.get('/purchases',userAuthMiddleware, async(req: Request, res:Response
         res.status(200).json({
             purchases : purchases
         })
-
     }
     catch(error){
 
@@ -138,9 +135,6 @@ userRouter.get('/purchases',userAuthMiddleware, async(req: Request, res:Response
             error : "internal server error"
         })
     }
-
-
-
 })
 
 export default userRouter;
