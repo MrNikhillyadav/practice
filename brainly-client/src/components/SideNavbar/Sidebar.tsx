@@ -69,8 +69,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarInterface) {
         <ProfileCard isLoggedIn={isLoggedIn} setIsLoggedIn={handleLogout} />
       </div>
 
-      {/* 🔹 Mobile Sidebar */}
-      <div className="md:hidden flex flex-col items-center  backdrop-blur-2xl h-screen fixed z-4 border border-[#414040] top-0 -left-4 mt-0 p-8 bg-[#191919e7] w-72 rounded-2xl drop-shadow-2xl">
+      {/* 🔹 Mobile-screen Sidebar */}
+      <div className="md:hidden flex flex-col items-center backdrop-blur-2xl h-screen fixed z-4 border border-[#414040] top-0 -left-4 mt-0 p-8 bg-[#191919e7] w-72 rounded-2xl drop-shadow-2xl">
         <div className='w-full flex flex-col justify-between items-center gap-8 p-4'>
           <div className="flex w-full justify-between items-center font-bold md:text-xl">
             My Brain
