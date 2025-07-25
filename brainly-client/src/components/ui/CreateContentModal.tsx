@@ -45,9 +45,7 @@ export function CreateContentModal({ open, onClose }: ModalInterface) {
             console.log("Content Created Successfully!");
             onClose();
 
-        } catch (error) {
-
-            alert(error.message);
+        } catch (error ) {
             console.error(error);
         }
     }
@@ -60,12 +58,12 @@ export function CreateContentModal({ open, onClose }: ModalInterface) {
     return (
         <>
             {open && (
-                <div className="bg-[#0e0e0ed0] shadow-md bg-opacity-10 flex justify-center items-center  h-screen w-screen fixed top-0 left-0  ">
-                    <div className="flex flex-col  w-[80vw] outline-none justify-center items-center rounded-md drop-shadow-sm bg-[#191919] md:w-[30vw] p-4 md:p-8">
-                        <div className="flex mb-4  w-full justify-between items-center ">
-                            <h2 className="font-bold  md:text-lg">Add Note</h2>
+                <div className="bg-[#0e0e0ed0] shadow-md bg-opacity-10 flex justify-center items-center z-50 h-screen w-screen fixed top-0 left-0  ">
+                    <div className="flex flex-col w-[80vw] outline-none justify-center items-center rounded-md drop-shadow-sm bg-[#191919] md:w-[35vw] p-8 md:p-20">
+                        <div className="flex mb-4  w-full md:mb-12 justify-between items-center ">
+                            <h2 className="font-bold  md:text-xl ">Add Note</h2>
                             <div className="p-1 text-center flex items-center rounded-full hover:bg-[#3E3E3E] cursor-pointer">
-                                <ImCancelCircle  onClick={onClose} />
+                                <ImCancelCircle className="md:text-xl"  onClick={onClose} />
                             </div>
                         </div>
                         <div className="flex flex-col justify-center items-center w-full gap-4">

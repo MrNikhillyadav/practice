@@ -2,13 +2,14 @@ import { Button } from "../ui/Button";
 import { FaShare } from "react-icons/fa6";
 import { FaPlusCircle } from "react-icons/fa";
 import { CreateContentModal } from "../ui/CreateContentModal";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useContent } from "../../hooks/useContent";
 import { Card } from "../ui/Card";
 import { useLocation } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Sidebar from "../SideNavbar/Sidebar";
-
+import { useShareLink } from "../../hooks/useShareLink";
 
 interface DashboardInterface {
     filter: string;
@@ -16,28 +17,59 @@ interface DashboardInterface {
 
 export default function Dashboard({ filter }: DashboardInterface) {
     const [isOpen, SetIsOpen] = useState(false);
-    const [isSideNavOpen,setIsSideNavOpen] = useState(false);
+    const [isSideNavOpen, setIsSideNavOpen] = useState(false);
     const { contents, refresh } = useContent();
+    const { link, getShareLink, isLoading, isCopied } = useShareLink();
     const location = useLocation();
-
-
+    
     useEffect(() => {
         refresh();
     }, [isOpen, refresh, location.pathname]);
 
-    const filteredContents = filter
-        ? contents.filter((content) => content.type === filter)
-        : contents;
+    const handleShareLink = useCallback(() => {
+        console.log("getShareLink called onClick!")
+        getShareLink()
+    }, [getShareLink])
+    
+    const filteredContents = useMemo(() => {
+        return filter
+            ? contents.filter((content) => content.type === filter)
+            : contents;
+    }, [contents, filter]);
+
+    const buttonContent = useMemo(() => {
+        if (isLoading) {
+            return {
+                title: "...",
+                icon: <AiOutlineLoading3Quarters className="animate-spin" />
+            }
+        }
+        if (isCopied) {
+            return {
+                title: "Link Copied!",
+                icon: <FaShare />
+            }
+        }
+        return {
+            title: "Share",
+            icon: <FaShare />
+        }
+    }, [isLoading, isCopied]);
+
+    const handleModalOpen = useCallback(() => SetIsOpen(true), []);
+    const handleModalClose = useCallback(() => SetIsOpen(false), []);
+    const handleSideNavOpen = useCallback(() => setIsSideNavOpen(true), []);
+    const handleSideNavClose = useCallback(() => setIsSideNavOpen(false), []);
 
     return (
         <div className="p-6 w-full h-full min-h-screen rounded-2xl py-2 border-4 border-[#191919e7] bg-[#0E0E0E] ">
             <CreateContentModal 
                 open={isOpen} 
-                onClose={() => SetIsOpen(false)} 
+                onClose={handleModalClose} 
             />
                 
             <div className="md:hidden absolute z-4 border  ">
-                <Sidebar isOpen={isSideNavOpen} onClose={() => setIsSideNavOpen(false)} />
+                <Sidebar isOpen={isSideNavOpen} onClose={handleSideNavClose} />
             </div>
                 
 
@@ -45,7 +77,7 @@ export default function Dashboard({ filter }: DashboardInterface) {
                 <h1 className="hidden md:block text-md md:text-xl font-medium">Dashboard</h1>
 
                 <div className="md:hidden flex justify-center items-center gap-2  text-md md:text-xl ml-2 font-medium">
-                    <span onClick={() => setIsSideNavOpen(true)} >
+                    <span onClick={handleSideNavOpen} >
                         <RxHamburgerMenu/>
                     </span>
                     My Brain 
@@ -57,11 +89,16 @@ export default function Dashboard({ filter }: DashboardInterface) {
                 <div className="flex items-center justify-between gap-1 md:gap-4">
                     <Button
                         variant="primary"
-                        onClick={() => SetIsOpen(true)}
+                        onClick={handleModalOpen}
                         title="Add "
                         startIcon={<FaPlusCircle />}
                     />
-                    <Button title="Share" startIcon={<FaShare />} />
+                    <Button 
+                        onClick={handleShareLink}
+                        title={buttonContent.title}
+                        variant={isCopied ? "primary" : undefined}
+                        startIcon={buttonContent.icon}
+                    />
                 </div>
             </div>
 

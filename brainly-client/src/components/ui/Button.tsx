@@ -13,6 +13,7 @@ const defaultStyle = " rounded-md bg-[#252525] text-sm px-2 py-1 drop-shadow-md 
 const ButtonVariants = {
   "primary" : 'bg-white text-black hover:bg-white/85',
   "secondary" : 'bg-[#878787] text-black',
+  
 }
 
 export  function Button(props : ButtonInterface){ 
