@@ -16,7 +16,7 @@ export default function Workspace({filter}:WorkspaceInterface){
     }
 
     return (
-        <div className="w-full h-screen bg-[#0E0E0E]  text-white">
+        <div className="w-full h-full bg-[#0E0E0E]  text-white">
             {!isSidebarOpen && (
                 <div className='text-3xl hidden md:block  transition-all duration-200 cursor-pointer absolute top-6  left-2 z-50 '>
                         < MdOutlineKeyboardDoubleArrowRight  
@@ -27,7 +27,7 @@ export default function Workspace({filter}:WorkspaceInterface){
             )
             }
                      
-                <div className='flex  md:rounded-2xl bg-[#191919e7] '>
+                <div className='flex md:rounded-2xl bg-[#191919e7] '>
                     <Sidebar isOpen={isSidebarOpen} onClose={handleSidebar} />
                     <Dashboard filter={filter} />
                 </div>

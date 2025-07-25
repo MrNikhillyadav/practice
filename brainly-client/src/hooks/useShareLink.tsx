@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState, useCallback, useRef } from "react";
 
 export function useShareLink(){
-    const [link, setLink] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [isCopied, setIsCopied] = useState(false)
     const timeoutRef = useRef< number| null>(null)
@@ -34,7 +33,6 @@ export function useShareLink(){
             const hashLink =`http://localhost:3000/api/v1/brain/share/${hash}`
             console.log('hashLink: ', hashLink);
     
-            setLink(hashLink)
             
             await navigator.clipboard.writeText(hashLink)
             setIsCopied(true)
@@ -51,5 +49,5 @@ export function useShareLink(){
         }
     }, [isLoading])
   
-    return { link, getShareLink, isLoading, isCopied }
+    return { getShareLink, isLoading, isCopied }
 }

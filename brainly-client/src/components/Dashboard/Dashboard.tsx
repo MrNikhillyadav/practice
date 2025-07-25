@@ -15,11 +15,19 @@ interface DashboardInterface {
     filter: string;
 }
 
+interface Content {
+    _id: string;
+    title: string;
+    link: string;
+    type: string;
+    userId?: string;
+}
+
 export default function Dashboard({ filter }: DashboardInterface) {
     const [isOpen, SetIsOpen] = useState(false);
     const [isSideNavOpen, setIsSideNavOpen] = useState(false);
     const { contents, refresh } = useContent();
-    const { link, getShareLink, isLoading, isCopied } = useShareLink();
+    const { getShareLink, isLoading, isCopied } = useShareLink();
     const location = useLocation();
     
     useEffect(() => {
@@ -33,14 +41,14 @@ export default function Dashboard({ filter }: DashboardInterface) {
     
     const filteredContents = useMemo(() => {
         return filter
-            ? contents.filter((content) => content.type === filter)
+            ? contents.filter((content:Content) => content.type === filter)
             : contents;
     }, [contents, filter]);
 
     const buttonContent = useMemo(() => {
         if (isLoading) {
             return {
-                title: "...",
+                title: "Generating...",
                 icon: <AiOutlineLoading3Quarters className="animate-spin" />
             }
         }

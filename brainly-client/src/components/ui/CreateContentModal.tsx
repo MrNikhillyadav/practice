@@ -10,10 +10,6 @@ interface ModalInterface {
     onClose: () => void;
 }
 
-enum ContentType {
-    Youtube = "youtube",
-    Twitter = "twitter"
-}
 
 export function CreateContentModal({ open, onClose }: ModalInterface) {
     const titleRef = useRef<HTMLInputElement>(null);
@@ -69,19 +65,20 @@ export function CreateContentModal({ open, onClose }: ModalInterface) {
                         <div className="flex flex-col justify-center items-center w-full gap-4">
                             <Input reference={titleRef} placeholder={'e.g. Musk came up with American Party'} />
                             <Input reference={linkRef} placeholder={'e.g. https://x.com/kevinlu625'} />
+
                             <p className="text-gray-400 text-sm inline-flex w-full text-start">
-                                choose Content-type
+                                Content-type
                             </p>
                             <div className="flex  h-full gap-2 items-start w-full">
                                 <Button
                                     title="Twitter"
-                                    onClick={() => setType(ContentType.Twitter)}
-                                    variant={type === ContentType.Twitter ? "secondary" : undefined}
+                                    onClick={() => setType("twitter")}
+                                    variant={type === "twitter" ? "secondary" : undefined}
                                 />
                                 <Button
                                     title="Youtube"
-                                    onClick={() => setType(ContentType.Youtube)}
-                                    variant={type === ContentType.Youtube ? "secondary" : undefined}
+                                    onClick={() => setType("youtube")}
+                                    variant={type === "youtube" ? "secondary" : undefined}
                                 />
                             </div>
                             <Button
