@@ -2,6 +2,7 @@ import axios from "axios";
 import { Button } from "./Button";
 import { MdCancel } from "react-icons/md";
 import { useContent } from "../../hooks/useContent";
+import { toast } from 'sonner'
 
 interface DeleteModalInterface {
     id : string;
@@ -13,15 +14,25 @@ export function CreateDeleteModal({id,open,onClose}:DeleteModalInterface){
     const { refresh } = useContent();
 
     async function handleDelete(id : string){
-            await axios.delete(`http://localhost:3000/api/v1/content/remove/${id}`,
+        const loadId = toast.loading('deleting ...')
+
+            const response = await axios.delete(`http://localhost:3000/api/v1/content/remove/${id}`,
                 {
                     headers : {
                         Authorization : `Bearer ${localStorage.getItem('token')}`
                     }
                 }
             );
-            refresh();
-            onClose();
+            
+            if (response.status === 200) {
+                
+                toast.success(`content deleted! `)
+                toast.dismiss(loadId)
+                refresh()
+                onClose();
+                return;
+            } 
+           
     }
 
     return (<>

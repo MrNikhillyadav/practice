@@ -21,7 +21,7 @@ export default function Workspace({filter}:WorkspaceInterface){
                 <div className='text-3xl hidden md:block  transition-all duration-200 cursor-pointer absolute top-6  left-2 z-50 '>
                         < MdOutlineKeyboardDoubleArrowRight  
                             onClick={() => setIsSidebarOpen(true)}
-                            // onMouseEnter={() => setIsSidebarOpen(true)}
+                            onMouseEnter={() => setIsSidebarOpen(true)}
                         />
                     </div>
             )
