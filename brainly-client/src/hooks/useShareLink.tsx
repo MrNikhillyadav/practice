@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useCallback, useRef } from "react";
+import { toast } from 'sonner'
 
 export function useShareLink(){
     const [isLoading, setIsLoading] = useState(false)
@@ -8,6 +9,7 @@ export function useShareLink(){
     
     const getShareLink = useCallback(async () => {
         if (isLoading) return; 
+        const loadId = toast.loading('generating ...')
         
         try {
             console.log("inside generateSharelink function")
@@ -36,11 +38,19 @@ export function useShareLink(){
             
             await navigator.clipboard.writeText(hashLink)
             setIsCopied(true)
+
             
             timeoutRef.current = setTimeout(() => {
                 setIsCopied(false)
             }, 3000)
             
+            if (res.status === 200) {
+               
+               toast.success(`link copied to clipboard! `)
+               toast.dismiss(loadId)
+               return;
+           } 
+           
         } catch (error) {
             console.error("Error generating share link:", error)
             setIsCopied(false)

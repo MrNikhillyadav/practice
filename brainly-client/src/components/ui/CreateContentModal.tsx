@@ -4,6 +4,7 @@ import { ImCancelCircle } from "react-icons/im";
 import { Input } from "./Input";
 import axios from "axios";
 import { useContent } from "../../hooks/useContent";
+import { toast } from 'sonner'
 
 interface ModalInterface {
     open: boolean;
@@ -20,9 +21,10 @@ export function CreateContentModal({ open, onClose }: ModalInterface) {
     async function CreateContent() {
         const title = titleRef.current?.value;
         const link = linkRef.current?.value;
+        const loadId = toast.loading('adding ...')
 
         try {
-            await axios.post(
+            const response = await axios.post(
                 "http://localhost:3000/api/v1/content/create",
                 {
                         link,
@@ -36,10 +38,14 @@ export function CreateContentModal({ open, onClose }: ModalInterface) {
                 }
             );
 
-            refresh();
-
-            console.log("Content Created Successfully!");
-            onClose();
+            if (response.status === 200) {
+                
+                refresh()
+                toast.success(`added content successfully! 🎉🥳`)
+                toast.dismiss(loadId)
+                onClose();
+                return;
+            } 
 
         } catch (error ) {
             console.error(error);
