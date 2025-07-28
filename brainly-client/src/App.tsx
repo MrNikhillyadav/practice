@@ -1,4 +1,5 @@
 import './App.css'
+import LandingPage from './pages/LandingPage';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SingUp';
 import Workspace from "./pages/Workspace";
@@ -8,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Workspace filter='' />} />
+        <Route path='/' element={<LandingPage/>} />
         <Route path='/dashboard' element={<Workspace filter="" />} />
         <Route path='/twitter' element={<Workspace filter="twitter" />} />
         <Route path='/youtube' element={<Workspace filter="youtube" />} />
