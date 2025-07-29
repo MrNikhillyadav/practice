@@ -1,7 +1,7 @@
 
 const HeroSection = () => {
   return (
-    <div className="w-full h-full mt-20 ">
+    <div className="w-full h-full mt-16 ">
        <div className=" flex flex-col gap-6 justify-center items-center">
              <div className=" text-center">
                 <h1 
