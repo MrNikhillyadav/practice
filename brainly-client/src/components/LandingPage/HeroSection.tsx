@@ -21,7 +21,7 @@ const HeroSection = () => {
             </p>
 
             <button className="bg-[#FF6A2F] cursor-pointer  font-medium rounded-lg px-6 py-3 text-center text-lg">Save Your First Content</button>
-            <p className="text-[#878787] text-center">No credit required</p>
+            {/* <p className="text-[#878787] text-center">No credit required</p> */}
        </div>
     </div>
   )
