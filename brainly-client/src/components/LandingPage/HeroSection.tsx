@@ -1,5 +1,9 @@
+import { useNavigate } from "react-router-dom"
 
 const HeroSection = () => {
+  const Navigate = useNavigate()
+  
+
   return (
     <div className="w-full h-full mt-16 ">
        <div className=" flex flex-col gap-6 justify-center items-center">
@@ -20,7 +24,10 @@ const HeroSection = () => {
                 in one organized space. Access everything instantly, anywhere.
             </p>
 
-            <button className="bg-[#FF6A2F] cursor-pointer  font-medium rounded-lg px-6 py-3 text-center text-lg">Save Your First Content</button>
+            <button
+              onClick={ () => Navigate('/dashboard')}
+              className="bg-[#FF6A2F] cursor-pointer  font-medium rounded-lg px-6 py-3 text-center text-lg">Save Your First Content</button>
+
             {/* <p className="text-[#878787] text-center">No credit required</p> */}
        </div>
     </div>
