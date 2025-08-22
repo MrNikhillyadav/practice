@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import { ENV } from './env';
 
 async function ConnectDB() {
 
     try {
 
-        await mongoose.connect(process.env.DATABASE_URI || "undefined");
+        await mongoose.connect(ENV.DATABASE_URI || "undefined");
         console.log('db connected');
     } 
     catch (e) {
