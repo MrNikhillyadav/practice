@@ -19,21 +19,24 @@ app.use('/api/v1/content', authMiddleware , contentRouter)
 app.use('/api/v1/brain', authMiddleware , brainRouter)
 
 
-const startServer = async() => {
+const startServer = async () => {
     try {
         await ConnectDB();
-        if(ENV.NODE_ENV !== "production"){
-             app.listen(ENV.PORT, () => {
-                console.log(`server running on Port:`,ENV.PORT );
+        if (process.env.VERCEL !== '1') {
+            app.listen(ENV.PORT, () => {
+                console.log(`server running on Port:`, ENV.PORT);
             });
         }
-    }
-    catch(error) {
+    } catch (error) {
         console.error('Failed to connect to the database:', error);
         process.exit(1);
-    };
-}
+    }
+};
 
-startServer();   
+startServer();
+
+if (process.env.VERCEL === '1') {
+    ConnectDB();
+}
 
 export default app;
