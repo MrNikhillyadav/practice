@@ -1,8 +1,6 @@
-
 import { NextFunction,Request,Response } from "express";
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { UserModel } from "../models/model";
-import { JWT_SECRET } from "../config";
+import { ENV } from "../config/env";
 
 interface CustomRequest extends Request {
     userId?: string; 
@@ -21,7 +19,7 @@ export default async function authMiddleware(req:CustomRequest,res:Response,next
             return;
         }
     
-        const decodedPayload =  await jwt.verify(token,JWT_SECRET || "" ) as JwtPayload;
+        const decodedPayload =  await jwt.verify(token,ENV.JWT_SECRET || "" ) as JwtPayload;
 
         if(!decodedPayload) {
             res.json({

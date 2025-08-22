@@ -7,7 +7,6 @@ const  UserSchema = new Schema({
     password : {type : String}
 })
 
-
 const contentType = new Schema({
     title : String,
     link : String,
@@ -15,13 +14,11 @@ const contentType = new Schema({
     userId : {type : Schema.Types.ObjectId, ref : "User", required : true},
 })
 
-
 const LinkSchema = new Schema({
     hash : String,
     userId : {type : Schema.Types.ObjectId, ref : "User", required : true },
     contentId : {type : Schema.Types.ObjectId, ref : "Content"}
 })
-
 
 
 export const ContentModel = mongoose.model("Content", contentType);

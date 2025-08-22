@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { UserModel } from '../models/model';
 import { loginSchema, signUpSchema } from '../types';
-import { JWT_SECRET } from '../config';
+import { ENV } from '../config/env';
 
 const userRouter = Router()
 
@@ -38,7 +38,7 @@ userRouter.post('/signup', async(req:Request, res:Response) => {
     
         res.status(200).json({
             message: "signed up successful!",
-            user : user 
+            user : user.username, 
         });
     }
     catch(e){
@@ -83,7 +83,7 @@ userRouter.post('/signin', async(req:Request, res:Response) => {
     
                 const token =  jwt.sign({
                     id : user._id.toString()
-                }, JWT_SECRET || "")
+                }, ENV.JWT_SECRET || "")
         
                 res.status(200).json({
                     message: "logged in!",

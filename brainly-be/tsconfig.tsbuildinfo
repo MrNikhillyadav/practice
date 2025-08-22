@@ -1,1 +1,1 @@
-{"root":["./src/config.ts","./src/index.ts","./src/override.d.ts","./src/middlewares/authmiddleware.ts","./src/models/model.ts","./src/routes/brain.ts","./src/routes/content.ts","./src/routes/user.ts","./src/types/index.ts"],"version":"5.8.3"}
+{"root":["./src/index.ts","./src/override.d.ts","./src/config/db.ts","./src/config/env.ts","./src/middlewares/authmiddleware.ts","./src/models/model.ts","./src/routes/brain.ts","./src/routes/content.ts","./src/routes/user.ts","./src/types/index.ts"],"version":"5.8.3"}
