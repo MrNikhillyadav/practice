@@ -22,7 +22,7 @@ export default async function authMiddleware(req:CustomRequest,res:Response,next
         const decodedPayload =  await jwt.verify(token,ENV.JWT_SECRET || "" ) as JwtPayload;
 
         if(!decodedPayload) {
-            res.json({
+            res.status(403).json({
                 message : "Invalid token"
             })
         }
