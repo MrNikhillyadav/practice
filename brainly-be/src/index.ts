@@ -18,7 +18,6 @@ app.use('/api/v1/user',  userRouter)
 app.use('/api/v1/content', authMiddleware , contentRouter)
 app.use('/api/v1/brain', authMiddleware , brainRouter)
 
-
 const startServer = async () => {
     try {
         await ConnectDB();
