@@ -92,7 +92,7 @@ brainRouter.get('/share/:sharelink',async( req:Request, res:Response) => {
         })
 
         if(!content){
-            res.json({
+            res.status(404).json({
                 message : "content not found"
             })
             return;
@@ -151,7 +151,7 @@ brainRouter.post('/share-by-id',async( req:Request, res:Response) => {
         }
         catch(e){
 
-            res.json({
+            res.status(500).json({
                 error : "error occured"
             })
             return;
@@ -163,7 +163,7 @@ brainRouter.post('/share-by-id',async( req:Request, res:Response) => {
             contentId
         })
 
-        res.json({
+        res.status(201).json({
             message : "hash removed for contentId"
         })
 
@@ -181,7 +181,7 @@ brainRouter.get('/share-by-id/:contentId',async( req:Request, res:Response) => {
 
         if(!brainHash){
 
-            res.json({
+            res.status(404).json({
                 message : "hash not found"
             })
         }
@@ -191,7 +191,7 @@ brainRouter.get('/share-by-id/:contentId',async( req:Request, res:Response) => {
         })
 
         if(!content){
-            res.json({
+            res.status(404).json({
                 message : "content not found"
             })
             return;
