@@ -21,7 +21,7 @@ app.use('/api/v1/brain', authMiddleware , brainRouter)
 const startServer = async () => {
     try {
         await ConnectDB();
-        if (process.env.VERCEL !== '1') {
+        if (ENV.NODE_ENV !== 'production') {
             app.listen(ENV.PORT, () => {
                 console.log(`server running on Port:`, ENV.PORT);
             });
@@ -33,9 +33,5 @@ const startServer = async () => {
 };
 
 startServer();
-
-if (process.env.VERCEL === '1') {
-    ConnectDB();
-}
 
 export default app;
