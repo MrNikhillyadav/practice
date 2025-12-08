@@ -3,21 +3,19 @@ import { AdminModel, CourseModel } from "../models/models";
 import bcrypt from 'bcrypt'
 import jwt  from "jsonwebtoken";
 import { JWT_ADMIN_PASSWORD } from "../config";
-import { adminZodSignInSchema, adminZodSignUpSchema, courseInputType, courseZodSchema } from "../types/types";
+import { AdminSignInType, AdminSignUpType, AdminZodSignInSchema, AdminZodSignUpSchema,CourseInputType, CourseZodSchema, IAdminDocument, ICourseDocument } from "../types/types";
 import adminAuthMiddleware from "../middlewares/adminAuth";
 
 const adminRouter = Router();
 
 adminRouter.get('/', (req:Request, res:Response) => {
-
     res.json({
         message: "healthy server"
     });
-    
 });
 
 adminRouter.post('/signup', async(req:Request, res: Response) => {
-    const parsedData = adminZodSignUpSchema.safeParse(req.body);
+    const parsedData:AdminSignUpType = AdminZodSignUpSchema.safeParse(req.body);
     const password = parsedData.data?.password || "" 
 
     if(!parsedData.success){
@@ -30,7 +28,7 @@ adminRouter.post('/signup', async(req:Request, res: Response) => {
 
     try {
 
-        const user = await AdminModel.create({
+        const user:IAdminDocument = await AdminModel.create({
             firstName : parsedData.data?.firstName,
             lastName : parsedData.data?.lastName,
             email : parsedData.data?.email,
@@ -51,7 +49,7 @@ adminRouter.post('/signup', async(req:Request, res: Response) => {
 })
 
 adminRouter.post('/signin', async(req:Request, res: Response) => {
-    const parsedData = adminZodSignInSchema.safeParse(req.body);
+    const parsedData:AdminSignInType = AdminZodSignInSchema.safeParse(req.body);
 
     const password = parsedData.data?.password;
     const email = parsedData.data?.email ;
@@ -65,7 +63,7 @@ adminRouter.post('/signin', async(req:Request, res: Response) => {
 
     try {
 
-        const admin = await AdminModel.findOne({
+        const admin: IAdminDocument = await AdminModel.findOne({
             email 
         })
 
@@ -109,8 +107,8 @@ adminRouter.post('/signin', async(req:Request, res: Response) => {
 })
 
 adminRouter.post('/create-course', adminAuthMiddleware, async(req: Request , res:Response) => {
-    const parsedData = courseZodSchema.safeParse(req.body);
-    const { data } = parsedData; 
+    const parsedData = CourseZodSchema.safeParse(req.body);
+    const { data }:CourseInputType = parsedData; 
     const adminId = req.adminId;
 
     if(!parsedData.success){
@@ -120,21 +118,16 @@ adminRouter.post('/create-course', adminAuthMiddleware, async(req: Request , res
     }
 
     try{
-
-        const course = await CourseModel.create({
-            ...data,
+        const course:ICourseDocument = await CourseModel.create({
+            ...data,       // using ...spread operator 
             creatorId: adminId , 
         });
 
-
-        
         res.status(201).json({
             message : "new course created!"
         })
-
     }
     catch(error){
-
         res.status(500).json({
             error : "error in creating course, try later"
         })
@@ -150,8 +143,7 @@ adminRouter.get('/all-courses', adminAuthMiddleware, async(req: Request , res:Re
             creatorId: adminId , 
         });
 
-        if(!allCourses){
-            
+        if(!allCourses){ 
             res.json({
                 message : "No course exist yet!"
             })
@@ -203,7 +195,7 @@ adminRouter.get('/course/:courseId', adminAuthMiddleware, async(req: Request , r
 })
 
 adminRouter.put('/update-course/:courseId', adminAuthMiddleware, async(req: Request , res:Response) => {
-    const parsedData = courseZodSchema.safeParse(req.body);
+    const parsedData:CourseInputType = CourseZodSchema.safeParse(req.body);
     const courseId = req.params.courseId;
     const { data } = parsedData; 
     const adminId = req.adminId;
@@ -215,22 +207,21 @@ adminRouter.put('/update-course/:courseId', adminAuthMiddleware, async(req: Requ
     }
 
     try{
-
-        const course = await CourseModel.findOneAndUpdate(
+        const course:ICourseDocument = await CourseModel.findOneAndUpdate(
             {
                 creatorId : adminId,
-                _id: courseId
-                
+                _id: courseId  
             },
             {
             ...data, 
-            }
+            },
+            {new : true}
         );
 
         if(!course){
 
             res.status(404).json({
-                messaage : "No course with this id exist!"
+                message : "No course with this id exist!"
             })
         }
 
@@ -239,8 +230,8 @@ adminRouter.put('/update-course/:courseId', adminAuthMiddleware, async(req: Requ
         })
 
     }
-    catch(error){
-
+    catch(error ){
+       
         res.status(500).json({
             error : "error in updating course, try later"
         })
@@ -253,7 +244,7 @@ adminRouter.delete('/delete-course/:courseId', adminAuthMiddleware, async(req: R
 
     try{
 
-        const course = await CourseModel.findOneAndDelete(
+        const course:ICourseDocument = await CourseModel.findOneAndDelete(
             {
                 _id: courseId,
                 creatorId : adminId,

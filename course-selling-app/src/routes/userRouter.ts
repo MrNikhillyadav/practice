@@ -9,13 +9,10 @@ import userAuthMiddleware from "../middlewares/userAuth";
 const userRouter = Router();
 
 userRouter.get('/', (req:Request, res:Response) => {
-
     res.status(200).json({
         message: "healthy server"
-    });
-    
+    });   
 });
-
 
 userRouter.post('/signup', async(req:Request, res: Response) => {
     const parsedData = UserZodSignUpSchema.safeParse(req.body);

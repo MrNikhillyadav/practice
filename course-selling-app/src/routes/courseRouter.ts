@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import userAuthMiddleware from "../middlewares/userAuth";
 import { CourseModel, PurchaseModel } from "../models/models";
+import { ICourseDocument } from "../types/types";
 
 const courseRouter = Router();
 
@@ -9,7 +10,7 @@ courseRouter.post('/purchase/:courseId', userAuthMiddleware, async(req:Request, 
     const courseId = req.params.courseId;
 
     try{
-        const course = await PurchaseModel.create({
+        const course:ICourseDocument = await PurchaseModel.create({
             userId,
             courseId
         })
@@ -19,7 +20,6 @@ courseRouter.post('/purchase/:courseId', userAuthMiddleware, async(req:Request, 
             })
     }
     catch(error){
-
         res.status(500).json({
             error: "server error"
         })

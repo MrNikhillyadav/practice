@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { Schema } from 'mongoose';
+import { contentSchema } from '../types';
 
 const  UserSchema = new Schema({ 
     username : {type : String},
@@ -7,7 +8,7 @@ const  UserSchema = new Schema({
     password : {type : String}
 })
 
-const contentType = new Schema({
+const ContentSchema = new Schema({
     title : String,
     link : String,
     type : String,
@@ -21,6 +22,6 @@ const LinkSchema = new Schema({
 })
 
 
-export const ContentModel = mongoose.model("Content", contentType);
+export const ContentModel = mongoose.model("Content", ContentSchema);
 export const UserModel =mongoose.model("User", UserSchema);
 export const LinkModel = mongoose.model("Link", LinkSchema)

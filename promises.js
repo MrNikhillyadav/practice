@@ -2,21 +2,21 @@
 
 //promises .then
 
-// function f(t){
-//     return new Promise ((resolve) => {
-//         console.log('sleeping .......')
-//         setTimeout(() => {
-//             resolve();
-//         } ,t * 1000)
-//     })
+function f(t){
+    return new Promise ((resolve) => {
+        console.log('sleeping .......')
+        setTimeout(() => {
+            resolve();
+        } ,t * 1000)
+    })
 
-// }
+}
 
-// const result = f(5)
+const result = f(5)
 
-// result.then(() => {
-//     console.log('done')
-// })
+result.then(() => {
+    console.log('done')
+})
 
 // Note: return the promise to use .then() syntax
 

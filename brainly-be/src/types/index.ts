@@ -32,5 +32,6 @@ export const contentSchema = z.object({
     title : z.string(),
     link : z.string(),
     type : z.enum(CONTENT_TYPES)
-
 })
+
+export type ContentSchemaType =  z.infer<typeof contentSchema> ;
