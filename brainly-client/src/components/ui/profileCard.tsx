@@ -1,8 +1,6 @@
 import { Button } from './Button';
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 import avatar from "../../assets/avatar.png"
-import { useEffect } from 'react';
-import axios from 'axios';
+
 
 interface ProfileCardInterface {
     isLoggedIn : boolean,
