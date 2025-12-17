@@ -1,3 +1,4 @@
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 import axios from "axios";
 import { Button } from "./Button";
 import { MdCancel } from "react-icons/md";
@@ -16,7 +17,7 @@ export function CreateDeleteModal({id,open,onClose}:DeleteModalInterface){
     async function handleDelete(id : string){
         const loadId = toast.loading('deleting ...')
 
-            const response = await axios.delete(`http://localhost:3000/api/v1/content/remove/${id}`,
+            const response = await axios.delete(`${BACKEND_URL}/api/v1/content/remove/${id}`,
                 {
                     headers : {
                         Authorization : `Bearer ${localStorage.getItem('token')}`

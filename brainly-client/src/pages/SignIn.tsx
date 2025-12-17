@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Button } from "../components/ui/Button";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 import { Input } from "../components/ui/Input";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +27,7 @@ export default function SignIn(){
                         return
                 }
                 
-                const response = await axios.post("http://localhost:3000/api/v1/user/signin", 
+                const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, 
                     {
                         email,
                         password,

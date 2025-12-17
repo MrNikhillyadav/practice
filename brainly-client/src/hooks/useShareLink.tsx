@@ -1,11 +1,12 @@
 import axios from "axios";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 import { useState, useCallback, useRef } from "react";
 import { toast } from 'sonner'
 
 export function useShareLink(){
     const [isLoading, setIsLoading] = useState(false)
     const [isCopied, setIsCopied] = useState(false)
-    const timeoutRef = useRef< number| null>(null)
+    const timeoutRef = useRef<number| null>(null)
     
     const getShareLink = useCallback(async () => {
         if (isLoading) return; 
@@ -16,12 +17,11 @@ export function useShareLink(){
             setIsLoading(true)
             setIsCopied(false)
             
-            // Clear any existing timeout
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current)
             }
-
-            const res = await axios.post("http://localhost:3000/api/v1/brain/share",{
+            
+            const res = await axios.post(`${BACKEND_URL}/api/v1/brain/share`,{
                     share : true
                 },
                 {
@@ -32,7 +32,7 @@ export function useShareLink(){
             )
 
             const hash = res.data.existingHash[0].hash;
-            const hashLink =`http://localhost:3000/api/v1/brain/share/${hash}`
+            const hashLink =`${BACKEND_URL}/api/v1/brain/share/${hash}`
             console.log('hashLink: ', hashLink);
     
             
@@ -40,7 +40,7 @@ export function useShareLink(){
             setIsCopied(true)
 
             
-            timeoutRef.current = setTimeout(() => {
+            timeoutRef.current = window.setTimeout(() => {
                 setIsCopied(false)
             }, 3000)
             

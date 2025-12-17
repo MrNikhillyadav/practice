@@ -1,5 +1,8 @@
 import { Button } from './Button';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 import avatar from "../../assets/avatar.png"
+import { useEffect } from 'react';
+import axios from 'axios';
 
 interface ProfileCardInterface {
     isLoggedIn : boolean,
@@ -7,7 +10,9 @@ interface ProfileCardInterface {
 
 }
 
+
 export const ProfileCard = ({isLoggedIn,setIsLoggedIn}:ProfileCardInterface) => {
+    
     return (
     <>
         { isLoggedIn &&
@@ -24,8 +29,8 @@ export const ProfileCard = ({isLoggedIn,setIsLoggedIn}:ProfileCardInterface) => 
                         </div>
 
                         <div className='flex flex-col '>
-                                <span className="text-sm">Nikhil Yadav</span>
-                                <span className="text-xs">facts.foundr@gmail.com</span>
+                                <span className="text-sm">Username</span>
+                                <span className="text-xs">user_email@gmail.com</span>
                         </div>
 
                         

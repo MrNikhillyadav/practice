@@ -1,3 +1,4 @@
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 import { useRef, useState } from "react";
 import { Button } from "./Button";
 import { ImCancelCircle } from "react-icons/im";
@@ -25,7 +26,7 @@ export function CreateContentModal({ open, onClose }: ModalInterface) {
 
         try {
             const response = await axios.post(
-                "http://localhost:3000/api/v1/content/create",
+                `${BACKEND_URL}/api/v1/content/create`,
                 {
                         link,
                         title, 
